@@ -1,5 +1,4 @@
-package Ejercicio1;
-import java.lang.reflect.Array;
+package Laboratorio1.Ejercicio1;
 import java.util.*;;
 public class ejercicio1 {
     public static void main(String[] args) {
@@ -16,18 +15,24 @@ public class ejercicio1 {
             }
             notas.add(nota);
         }
+        int moda = calcularModa(notas);
+        double desviacionEstandar = calcularDesviacionEstandar(notas);
+        double mediana = calcularMediana(notas);
+        System.out.println("La media es: " + mediana);
+        System.out.println("La moda es: " + moda);
+        System.out.println("La desviacion estandar es: " + desviacionEstandar);
 
 
 
     }
-    public static void calcularMediana(ArrayList<Integer> notas){
+    public static double calcularMediana(ArrayList<Integer> notas){
         int contador = 0;
         int acumulado = 0;
         for(int i = 0 ; i < notas.size(); i++){
             contador ++;
             acumulado = acumulado + notas.get(i);
         }
-        System.out.println("Le mediana es: " + (acumulado/contador));
+        return (double) acumulado / contador;
     }
     public static int calcularModa(ArrayList<Integer> notas){
         int[] contador = new int[21];
@@ -46,5 +51,28 @@ public class ejercicio1 {
             }
         }
         return moda;
+    }
+    public static double calcularDesviacionEstandar(ArrayList<Integer> notas){
+        int n = notas.size();
+        if (n == 0) return 0;
+
+        // Paso 1: calcular la media
+        double suma = 0;
+        for (int i = 0; i < n; i++) {
+            suma += notas.get(i);
+        }
+        double media = suma / n;
+
+        // Paso 2: calcular la suma de los cuadrados de las diferencias
+        double sumaCuadrados = 0;
+        for (int i = 0; i < n; i++) {
+            double diferencia = notas.get(i) - media;
+            sumaCuadrados += diferencia * diferencia;
+        }
+
+        // Paso 3: calcular la raíz cuadrada del promedio de esas diferencias al cuadrado
+        double desviacion = Math.sqrt(sumaCuadrados / n);
+
+        return desviacion;
     }
 }
