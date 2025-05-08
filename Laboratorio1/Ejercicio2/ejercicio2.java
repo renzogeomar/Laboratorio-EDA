@@ -1,9 +1,20 @@
 package Laboratorio1.Ejercicio2;
 import java.util.*;
 public class ejercicio2{
-    Scanner scan = new Scanner(System.in);
-    System.ou.println("Ingresar hasta que numero desea hallar los números primos: ");
-    int numeros = scan.nextInt();
-    
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        System.ou.println("Ingresar hasta que numero desea hallar los números primos: ");
+        int numeros = scan.nextInt();
+        
+    }
+    public static void calcularNumerosPrimos(int numeros){
+        boolean[] primos = boolean[numeros-1];
+        for(int i=0; i<numeros;i++){
+            primos[i]= true;
+        }
 
+    }
 }
+
+
+    
