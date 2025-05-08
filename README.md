@@ -1,3 +1,3 @@
 # Laboratorios de EDA
-## De:
+## De :
 - Renzo Geomar Mamani Quispe
