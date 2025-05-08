@@ -29,4 +29,22 @@ public class ejercicio1 {
         }
         System.out.println("Le mediana es: " + (acumulado/contador));
     }
+    public static int calcularModa(ArrayList<Integer> notas){
+        int[] contador = new int[21];
+        for(int i = 0 ; i < notas.size(); i++){
+            int nota = notas.get(i);
+            if (nota >= 1 && nota <= 20) {
+                contador[nota]++;
+            }
+        }
+        int moda = -1;
+        int maxFrecuencia = 0;
+        for (int i = 1; i <= 20; i++) {
+            if (contador[i] > maxFrecuencia) {
+                maxFrecuencia = contador[i];
+                moda = i;
+            }
+        }
+        return moda;
+    }
 }
