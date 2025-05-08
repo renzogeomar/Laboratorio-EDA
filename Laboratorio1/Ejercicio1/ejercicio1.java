@@ -18,5 +18,15 @@ public class ejercicio1 {
         }
 
 
+
+    }
+    public static void calcularMediana(ArrayList<Integer> notas){
+        int contador = 0;
+        int acumulado = 0;
+        for(int i = 0 ; i < notas.size(); i++){
+            contador ++;
+            acumulado = acumulado + notas.get(i);
+        }
+        System.out.println("Le mediana es: " + (acumulado/contador));
     }
 }
