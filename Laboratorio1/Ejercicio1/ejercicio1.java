@@ -22,8 +22,6 @@ public class ejercicio1 {
         System.out.println("La moda es: " + moda);
         System.out.println("La desviacion estandar es: " + desviacionEstandar);
 
-
-
     }
     public static double calcularMediana(ArrayList<Integer> notas){
         int contador = 0;

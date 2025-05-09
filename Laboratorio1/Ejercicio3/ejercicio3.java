@@ -5,8 +5,23 @@ public class ejercicio3 {
         Scanner scan= new Scanner(System.in);
         System.out.println("Ingresar numeros");
         ArrayList<Integer> numeros= new ArrayList<>();
-        for(int i=)
+        for(int i=0; i<numeros.size(); i++){
+            int numero= scan.nextInt();
+            numeros.add(numero);
+        }
         
+
+    }
+    public static void ordenamientoInserccion(ArrayList<Integer> numeros){
+        for(int i=1; i<numeros.size(); i++){
+            int key= numeros.get(i);
+            int j = i-1;
+            while(j>=0 && numeros.get(j)>key){
+                numeros.set(j+1, numeros.get(j));
+                j--;
+            }
+            numeros.set(j+1, key);
+        }
 
     }
 
