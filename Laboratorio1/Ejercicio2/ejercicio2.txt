@@ -1,0 +1,34 @@
+Algoritmo Ejercicio2
+    Definir numeros, i, j Como Entero
+    Definir primos Como Logico
+    
+    Escribir "Ingresar hasta que número desea hallar los números primos: "
+    Leer numeros
+    
+    Dimension primos[numeros+1]
+    
+    // Inicializar el arreglo con todos los valores en verdadero
+    Para i = 0 Hasta numeros Con Paso 1 Hacer
+        primos[i] = Verdadero
+    FinPara
+    
+    // Aplicar la Criba de Eratóstenes
+    Para i = 2 Hasta raiz(numeros) Con Paso 1 Hacer
+        Si primos[i] Entonces
+            j = i * i
+            Mientras j <= numeros Hacer
+                primos[j] = Falso
+                j = j + i
+            FinMientras
+        FinSi
+    FinPara
+    
+    // Mostrar los números primos encontrados
+    Escribir "Números primos hasta ", numeros, ":"
+    Para i = 2 Hasta numeros Con Paso 1 Hacer
+        Si primos[i] Entonces
+            Escribir Sin Saltar i, " "
+        FinSi
+    FinPara
+    Escribir "" 
+FinAlgoritmo
