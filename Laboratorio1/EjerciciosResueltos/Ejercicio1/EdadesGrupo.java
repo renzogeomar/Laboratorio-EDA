@@ -8,13 +8,13 @@ public class EdadesGrupo{
         int[] edades = new int[n];
         System.out.println("Ingrese las edades:");
         for (int i = 0; i < n; i++) {
-        edades[i] = scanner.nextInt();
+            edades[i] = scanner.nextInt();
         }
         int suma = 0, mayor = edades[0], menor = edades[0];
         for (int edad : edades) {
-        suma += edad;
-        if (edad > mayor) mayor = edad;
-        if (edad < menor) menor = edad;
+            suma += edad;
+            if (edad > mayor) mayor = edad;
+            if (edad < menor) menor = edad;
         }
         double promedio = (double) suma / n;
         System.out.println("Edad promedio: " + promedio);
