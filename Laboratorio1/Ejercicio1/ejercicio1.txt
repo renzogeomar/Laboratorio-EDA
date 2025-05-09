@@ -1,0 +1,99 @@
+Algoritmo ejercicio1
+    Definir cantidad, nota, moda, desviacionEstandar, media Como Real
+    Definir notas Como Arreglo
+    
+    Escribir "Ingresar la cantidad de estudiantes: "
+    Leer cantidad
+    
+    Dimension notas[cantidad] // Crear arreglo con el tamaño especificado
+    
+    Para i = 0 Hasta cantidad - 1 Con Paso 1 Hacer
+        Escribir "Ingresar nota para el estudiante ", i + 1, ": "
+        Leer nota
+        
+        Mientras nota < 0 O nota > 20 Hacer
+            Escribir "Nota inválida (debe estar entre 0 y 20), ingresar nuevamente: "
+            Leer nota
+        Fin Mientras
+        
+        notas[i] = nota // Asignar la nota al arreglo
+    Fin Para
+    
+    media <- CalcularMedia(notas, cantidad)
+    moda <- CalcularModa(notas, cantidad)
+    desviacionEstandar <- CalcularDesviacionEstandar(notas, cantidad)
+    
+    Escribir "La media es: ", media
+    Escribir "La moda es: ", moda
+    Escribir "La desviación estándar es: ", desviacionEstandar
+FinAlgoritmo
+
+Funcion resultado <- CalcularMedia(notas, cantidad)
+    Definir suma Como Real
+    suma <- 0
+    
+    Para i = 0 Hasta cantidad - 1 Con Paso 1 Hacer
+        suma <- suma + notas[i]
+    Fin Para
+    
+    resultado <- suma / cantidad
+FinFuncion
+
+Funcion resultado <- CalcularModa(notas, cantidad)
+    Definir contador Como Entero;
+	Dimension contador[21];
+    Definir i, moda, maxFrecuencia Como Entero
+    
+    // Inicializar contador con ceros
+    Para i = 0 Hasta 20 Con Paso 1 Hacer
+        contador[i] <- 0
+    Fin Para
+    
+    // Contar frecuencia de cada nota
+    Para i = 0 Hasta cantidad - 1 Con Paso 1 Hacer
+        nota <- notas[i]
+        contador[nota] <- contador[nota] + 1
+    Fin Para
+    
+    // Encontrar la moda
+    moda <- -1
+    maxFrecuencia <- 0
+    
+    Para i = 0 Hasta 20 Con Paso 1 Hacer
+        Si contador[i] > maxFrecuencia Entonces
+            maxFrecuencia <- contador[i]
+            moda <- i
+        Fin Si
+    Fin Para
+    
+    resultado <- moda
+FinFuncion
+
+Funcion resultado <- CalcularDesviacionEstandar(notas, cantidad)
+    Definir i Como Entero
+    Definir suma, media, sumaCuadrados, desviacion Como Real
+    
+    Si cantidad <= 1 Entonces
+        resultado <- 0
+        Retornar
+    Fin Si
+    
+    // Calcular media
+    suma <- 0
+    Para i = 0 Hasta cantidad - 1 Con Paso 1 Hacer
+        suma <- suma + notas[i]
+    Fin Para
+    media <- suma / cantidad
+    
+    // Calcular suma de cuadrados de diferencias
+    sumaCuadrados <- 0
+    Para i = 0 Hasta cantidad - 1 Con Paso 1 Hacer
+        diferencia <- notas[i] - media
+        sumaCuadrados <- sumaCuadrados + (diferencia * diferencia)
+    Fin Para
+    
+    // Calcular desviación estándar (muestral)
+    desviacion <- raiz(sumaCuadrados / (cantidad - 1))
+    
+    resultado <- desviacion
+FinFuncion
