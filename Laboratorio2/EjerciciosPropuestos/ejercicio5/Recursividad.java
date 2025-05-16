@@ -16,7 +16,7 @@ public class Recursividad {
             return;
         }
         // Imprimir espacios, con la ayuda del parametro nivel
-        for (int i = 0; i < base - 1; i++) {
+        for (int i = 0; i < base - nivel; i++) {
             System.out.print(" ");
         }
         // Imprimir asteriscos
@@ -25,7 +25,7 @@ public class Recursividad {
         }
         System.out.println();
         // Llamada recursiva primero
-        trianguloRecursivo3(base-1, nivel + 1);
+        trianguloRecursivo3(base, nivel + 1);
 
     }
     public static void main(String[] args) {
