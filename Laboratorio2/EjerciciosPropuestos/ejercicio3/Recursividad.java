@@ -10,9 +10,9 @@ import java.util.Scanner;
 *****
  */
 public class Recursividad {
-    public void trianguloRecursivo(int base) {
+    public void trianguloRecursivo1(int base) {
         if (base > 1) {
-            trianguloRecursivo(base - 1);
+            trianguloRecursivo1(base - 1);
         }
         for(int i=0; i < base; i++){
             System.out.print("*");
@@ -26,7 +26,7 @@ public class Recursividad {
         System.out.println("Ingrese la base del triángulo:");
         int base = scan.nextInt();
         System.out.println("Triángulo recursivo:");
-        re.trianguloRecursivo(base);
+        re.trianguloRecursivo1(base);
         scan.close();
 
     }
