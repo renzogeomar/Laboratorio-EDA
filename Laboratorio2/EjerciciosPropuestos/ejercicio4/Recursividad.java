@@ -10,8 +10,21 @@ import java.util.Scanner;
 *****
  */
 public class Recursividad {
-    public void trianguloRecursivo2(int base) {
-
+    public void trianguloRecursivo2(int base,int nivel) {
+        if (nivel > base) {
+            return;
+        }
+        // Llamada recursiva primero
+        trianguloRecursivo2(base, nivel + 1);
+        // Imprimir espacios, con la ayuda del parametro nivel
+        for (int i = 0; i < base - nivel; i++) {
+            System.out.print(" ");
+        }
+        // Imprimir asteriscos
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("*");
+        }
+        System.out.println();
 
     }
     public static void main(String[] args) {
