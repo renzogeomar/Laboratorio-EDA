@@ -1,11 +1,11 @@
-package Laboratorio2.EjerciciosResueltos;
-
-public class ejercicio1{
-    void repetir() {
-        repetir();
+package Laboratorio2.EjerciciosResueltos.ejercicio2;
+public class Recursividad {
+    void imprimir(int x) {
+        System.out.println(x);
+        imprimir(x - 1);
     }
-
-    public static void main(String[] args) {
-        
+    public static void main(String[] ar) {
+        Recursividad re = new Recursividad();
+        re.imprimir(5);
     }
 }
