@@ -8,13 +8,19 @@ import java.util.Scanner;
  */
 public class Recursividad {
     public int[] rotarIzquierdaArray(int[] A, int d){
-        for(int i = 0 ; i < d; i++){
-            int temp = A[0];
-            for(int j = 0; j < A.length - 1; j++){
-                A[j] = A[j + 1];
-            }
-            A[A.length - 1] = temp;
+        if (d == 0 || A.length == 0) {
+        return A;
         }
+
+        // Rotar una vez a la izquierda, osea caso base
+        int[] rotado = new int[A.length];
+        for (int i = 1; i < A.length; i++) {
+            rotado[i - 1] = A[i];
+        }
+        rotado[A.length - 1] = A[0];
+
+        // Llamada recursiva hasta que d sea 0, dependera del numero de veces que se quiera rotar
+        return rotarIzquierdaArray(rotado, d - 1);
 
     }
 
