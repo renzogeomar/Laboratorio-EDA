@@ -16,16 +16,16 @@ public class Recursividad {
             return;
         }
         // Imprimir espacios, con la ayuda del parametro nivel
-        for (int i = 0; i < base - nivel; i++) {
+        for (int i = 0; i < base - 1; i++) {
             System.out.print(" ");
         }
         // Imprimir asteriscos
         for (int i = 0; i < nivel; i++) {
-            System.out.print("*");
+            System.out.print("* ");
         }
         System.out.println();
         // Llamada recursiva primero
-        trianguloRecursivo2(base, nivel + 1);
+        trianguloRecursivo3(base-1, nivel + 1);
 
     }
     public static void main(String[] args) {
@@ -33,6 +33,8 @@ public class Recursividad {
         Scanner scan = new Scanner(System.in);
         System.out.print("Ingrese la base del triángulo: ");
         int base = scan.nextInt();
+        System.out.println("Triángulo recursivo alineado a la derecha:");
+        re.trianguloRecursivo3(base, 1);
 
         scan.close();
 
