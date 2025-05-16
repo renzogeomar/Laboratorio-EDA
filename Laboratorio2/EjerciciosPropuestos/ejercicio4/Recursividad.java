@@ -14,8 +14,6 @@ public class Recursividad {
         if (nivel > base) {
             return;
         }
-        // Llamada recursiva primero
-        trianguloRecursivo2(base, nivel + 1);
         // Imprimir espacios, con la ayuda del parametro nivel
         for (int i = 0; i < base - nivel; i++) {
             System.out.print(" ");
@@ -25,6 +23,8 @@ public class Recursividad {
             System.out.print("*");
         }
         System.out.println();
+        // Llamada recursiva primero
+        trianguloRecursivo2(base, nivel + 1);
 
     }
     public static void main(String[] args) {
