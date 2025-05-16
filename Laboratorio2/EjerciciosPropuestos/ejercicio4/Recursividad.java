@@ -30,7 +30,10 @@ public class Recursividad {
     public static void main(String[] args) {
         Recursividad re = new Recursividad();
         Scanner scan = new Scanner(System.in);
-
+        System.out.print("Ingrese la base del triángulo: ");
+        int base = scan.nextInt();
+        System.out.println("Triángulo recursivo alineado a la derecha:");
+        re.trianguloRecursivo2(base, 1);
         scan.close();
 
     }
