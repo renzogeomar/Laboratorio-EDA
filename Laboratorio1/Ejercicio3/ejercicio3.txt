@@ -3,8 +3,7 @@ Algoritmo Ejercicio3
     Definir numeros Como Lista de Enteros
     Escribir "Ingresar cantidad de numeros"
     Leer cantidad
-    Crear lista vacía numeros
-    
+    Crear lista vacï¿½a numeros
     Para i <- 1 Hasta cantidad Con Paso 1 Hacer
         Leer numero
         Agregar numero a la lista numeros
@@ -17,21 +16,18 @@ Algoritmo Ejercicio3
 FinAlgoritmo
 SubProceso ordenamientoInserccion(numeros)
     Definir i, j, key Como Entero
-	
-    Para i <- 2 Hasta Tamaño(numeros) Con Paso 1 Hacer
+    Para i <- 2 Hasta Tamaï¿½o(numeros) Con Paso 1 Hacer
         key <- numeros[i]
         j <- i - 1
-		
         Mientras j >= 1 Y numeros[j] > key Hacer
             numeros[j + 1] <- numeros[j]
             j <- j - 1
         Fin Mientras
-		
         numeros[j + 1] <- key
     Fin Para
 FinSubProceso
 SubProceso imprimir(numeros)
-    Para i <- 1 Hasta Tamaño(numeros) Con Paso 1 Hacer
+    Para i <- 1 Hasta Tamaï¿½o(numeros) Con Paso 1 Hacer
         Escribir numeros[i]
     Fin Para
 FinSubProceso

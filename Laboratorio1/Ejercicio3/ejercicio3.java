@@ -17,6 +17,7 @@ public class ejercicio3 {
 
         System.out.println("Lista ordenada:");
         imprimir(numeros);  
+        scan.close();
 
     }
     public static void ordenamientoInserccion(ArrayList<Integer> numeros){

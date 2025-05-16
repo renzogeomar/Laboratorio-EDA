@@ -6,6 +6,7 @@ public class ejercicio2{
         System.out.println("Ingresar hasta que numero desea hallar los números primos: ");
         int numeros = scan.nextInt();
         calcularNumerosPrimos(numeros);
+        scan.close();
     }
     public static void calcularNumerosPrimos(int numeros){
         boolean[] primos = new boolean[numeros+1];
