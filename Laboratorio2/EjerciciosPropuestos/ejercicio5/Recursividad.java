@@ -24,7 +24,7 @@ public class Recursividad {
             System.out.print("* ");
         }
         System.out.println();
-        // Llamada recursiva primero
+
         trianguloRecursivo3(base, nivel + 1);
 
     }
