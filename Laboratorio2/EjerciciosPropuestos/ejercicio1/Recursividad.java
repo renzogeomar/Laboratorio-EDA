@@ -1,5 +1,5 @@
 package Laboratorio2.EjerciciosPropuestos.ejercicio1;
-
+import java.util.Scanner;
 /*Invertir vector de enteros, permite ingresar tamaño y captura de valores del arreglo, el método
 invertirArray calcula y muestra el resultado.
 N = 3
@@ -22,6 +22,20 @@ public class Recursividad {
     }
 
     public static void main(String[] args) {
-
+        Scanner scan = new Scanner(System.in);
+        Recursividad re = new Recursividad();
+        System.out.println("Ingrese el tamaño del arreglo:");
+        int n = scan.nextInt();
+        int[] A = new int[n];
+        System.out.println("Ingrese los " + n + " elementos del arreglo:");
+        for (int i = 0; i < n; i++) {
+            A[i] = scan.nextInt();
+        }
+        re.invertirArray(A, 0, n - 1);
+        System.out.print("Arreglo invertido (recursivo): ");
+        for (int num : A) {
+            System.out.print(num + " ");
+        }
+        scan.close();
     }
 }
