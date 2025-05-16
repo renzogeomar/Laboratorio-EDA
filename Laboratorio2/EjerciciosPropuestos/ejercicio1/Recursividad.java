@@ -7,14 +7,18 @@ A = [1 2 3] -> Asalida=[3 2 1]*/
 
 
 public class Recursividad {
-    public int[] invertirArray(int[] array, int i, int j) {
-        if (i < j) {
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-            return invertirArray(array, i + 1, j - 1);
+    public int[] invertirArray(int[] array, int inicio, int fin) {
+        int [] resultado = new int[array.length];
+        if (inicio < fin) {
+            int temp = array[inicio];
+            array[inicio] = array[fin];
+            array[fin] = temp;
+            return invertirArray(array, inicio + 1, fin - 1);
         }
-        return array;
+        for (int i = 0; i < array.length; i++) {
+            resultado[i] = array[i];
+        }
+        return resultado;
     }
 
     public static void main(String[] args) {
