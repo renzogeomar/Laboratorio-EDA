@@ -15,7 +15,7 @@ class Recursivdad {
     }
     void imprimir() {
         for (int f = 0; f < vec.length; f++)
-        System.out.print(vec[f] + " ");
+            System.out.print(vec[f] + " ");
         System.out.println("\n");
     }
     public static void main(String[] ar) {
