@@ -1,6 +1,7 @@
 package Laboratorio2.EjerciciosPropuestos.ejercicio1;
 import java.util.Scanner;
-/*Invertir vector de enteros, permite ingresar tamaño y captura de valores del arreglo, el método
+/* Ejercicio 1:
+Invertir vector de enteros, permite ingresar tamaño y captura de valores del arreglo, el método
 invertirArray calcula y muestra el resultado.
 N = 3
 A = [1 2 3] -> Asalida=[3 2 1]*/

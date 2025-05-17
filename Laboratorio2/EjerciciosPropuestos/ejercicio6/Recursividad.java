@@ -1,28 +1,29 @@
 package Laboratorio2.EjerciciosPropuestos.ejercicio6;
 import java.util.Scanner;
-/* Triangulo recursivo 3. El método trianguloRecursivo3 calcula y muestra el resultado
+/* Ejercicio 6
+ * Triangulo recursivo 3. El método trianguloRecursivo3 calcula y muestra el resultado
  * Si b = 5
  * Salida:
-*****
-*   *
-*   *
-*   *
-*****
+    *****
+    *   *
+    *   *
+    *   *
+    *****
  */
 public class Recursividad{
     public void cuadradoRecursivo(int base,int nivel){
+        // Condición base: termina la recursión cuando ya se imprimieron todas las filas
         if (nivel > base) {
             return;
         }
 
-        if (nivel % 2 == 0) {
-            System.out.println(" ");
-        } else if (nivel == base || nivel == 1) {
+        // Primera o última línea: llena de '*'
+        if (nivel == 1 || nivel == base) {
             for (int i = 0; i < base; i++) {
                 System.out.print("*");
             }
-            System.out.println(" ");
         } else {
+            // Líneas intermedias: '*' al inicio y final, espacios en medio
             for (int i = 0; i < base; i++) {
                 if (i == 0 || i == base - 1) {
                     System.out.print("*");
@@ -30,8 +31,9 @@ public class Recursividad{
                     System.out.print(" ");
                 }
             }
-            System.out.println(" ");
         }
+
+        System.out.println();
 
         cuadradoRecursivo(base, nivel + 1);
 
@@ -44,6 +46,5 @@ public class Recursividad{
         System.out.println("Cuadrado recursivo:");
         re.cuadradoRecursivo(base, 1);
         scan.close();
-    
     }
 }

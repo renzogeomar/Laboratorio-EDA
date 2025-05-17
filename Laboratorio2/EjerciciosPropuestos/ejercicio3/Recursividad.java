@@ -1,13 +1,14 @@
 package Laboratorio2.EjerciciosPropuestos.ejercicio3;
 import java.util.Scanner;
-/* Triangulo recursivo 1. El método trianguloRecursivo1 calcula y muestra el resultado
+/* Ejercicio 3:
+ * Triangulo recursivo 1. El método trianguloRecursivo1 calcula y muestra el resultado
  * Si b = 5
  * Salida:
-*
-**
-***
-****
-*****
+    *
+    **
+    ***
+    ****
+    *****
  */
 public class Recursividad {
     public void trianguloRecursivo1(int base) {

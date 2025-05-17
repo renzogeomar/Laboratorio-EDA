@@ -1,6 +1,6 @@
 package Laboratorio2.EjerciciosPropuestos.ejercicio2;
 import java.util.Scanner;
-/*
+/* Ejercicio 2:
  * Rotar a la Izquierda, permite ingresar tamaño y captura de valores del arreglo, el método
  * rotarIzquierdaArray calcula y muestra el resultado.
  * Si d=2
