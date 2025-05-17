@@ -11,32 +11,39 @@ import java.util.Scanner;
  */
 public class Recursividad{
     public void cuadradoRecursivo(int base,int nivel){
-        if(nivel % 2 == 0){
-            System.out.println(" ");
-            cuadradoRecursivo(base, nivel+1);
+        if (nivel > base) {
+            return;
         }
-        else if(nivel == base || nivel == 1){
-            for(int i = 0; i < base; i++){
+
+        if (nivel % 2 == 0) {
+            System.out.println(" ");
+        } else if (nivel == base || nivel == 1) {
+            for (int i = 0; i < base; i++) {
                 System.out.print("*");
             }
             System.out.println(" ");
-            cuadradoRecursivo(base, nivel+1);
-        }
-        else{
-            for(int i = 0; i < base; i++){
-                if(i == 0 || i == base-1){
+        } else {
+            for (int i = 0; i < base; i++) {
+                if (i == 0 || i == base - 1) {
                     System.out.print("*");
-                }
-                else{
+                } else {
                     System.out.print(" ");
                 }
             }
             System.out.println(" ");
-            cuadradoRecursivo(base, nivel+1);
         }
+
+        cuadradoRecursivo(base, nivel + 1);
 
     }
     public static void main(String[] args) {
+        Recursividad re = new Recursividad();
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Ingrese la base del cuadrado: ");
+        int base = scan.nextInt();
+        System.out.println("Cuadrado recursivo:");
+        re.cuadradoRecursivo(base, 1);
+        scan.close();
     
     }
 }
