@@ -44,7 +44,16 @@ public class list <T> {
         }
         return result;
     }
-    
+    public boolean addAll(int index, Collection<? extends T> c){ //Agrega todos los elementos de la colección c a partir de la posición index en la lista. 
+        boolean result = false;
+        for (T data : c) {
+            add(data, index); //agrega cada elemento de la coleccion a la lista
+            result = true; //indica que se agrego al menos un elemento
+        }
+        return result;
+
+    }
+
 
 }
 
