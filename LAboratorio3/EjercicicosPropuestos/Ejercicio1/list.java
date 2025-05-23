@@ -1,5 +1,7 @@
 package LAboratorio3.EjercicicosPropuestos.Ejercicio1;
 
+import java.util.Collection;
+
 public class list <T> {
     private node<T> root; //apunta al primer nodo/ punto de partida
     private int size; //tamaño de la lista
@@ -34,6 +36,15 @@ public class list <T> {
             actual.setNext(newNode); //agrega el nuevo nodo a la lista
         }
     }
+    public boolean addAll(Collection<? extends T> c){ //permite mayor flexibilidad y que el método acepte colecciones que tengan subtipos de E
+        boolean result = false;
+        for (T data : c) {
+            add(data); //agrega cada elemento de la coleccion a la lista
+            result = true; //indica que se agrego al menos un elemento
+        }
+        return result;
+    }
+    
 
 }
 
