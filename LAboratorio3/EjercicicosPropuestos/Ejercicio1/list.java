@@ -20,6 +20,21 @@ public class list <T> {
             actual.setNext(newNode); //agrega el nuevo nodo al final de la lista
         }
     }
-
+    public void add(T data, int posicion){
+        node<T> newNode = new node<T>(data); //crea un nuevo nodo
+        if (root == null){
+            root = newNode; // crea un nuevo nodo en caso que este vacio
+        }
+        else{
+            node<T> actual = root; //apunta al primer nodo
+            for (int i = 0; i < posicion - 1; i++){ //recorre la lista hasta la posicion deseada
+                actual = actual.getNext(); //apunta al siguiente nodo
+            }
+            newNode.setNext(actual.getNext()); //apunta al siguiente nodo
+            actual.setNext(newNode); //agrega el nuevo nodo a la lista
+        }
+    }
 
 }
+
+
