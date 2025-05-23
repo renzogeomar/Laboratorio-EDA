@@ -50,9 +50,12 @@ public class list <T> {
             add(data, index); //agrega cada elemento de la coleccion a la lista
             result = true; //indica que se agrego al menos un elemento
         }
-        return result;
-
+        return result;   
     }
+    public void clear(){ //elimina todos los elementos de la lista
+        root = null; //inicializa la lista vacia
+    }
+    
 
 
 }
