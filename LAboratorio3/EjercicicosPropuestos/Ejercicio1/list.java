@@ -54,18 +54,6 @@ public class list <T> {
     public void clear(){ //elimina todos los elementos de la lista
         root = null; //inicializa la lista vacia
     }
-    public void remove(){
-        if (root == null){ 
-            System.out.println("La lista esta vacia");
-        }
-        else{
-            node<T> actual = root; //apunta al primer nodo
-            while (actual.getNext() != null){ //recorre la lista hasta el final
-                actual = actual.getNext(); //apunta al siguiente nodo
-            }
-            actual.setNext(null); //elimina el ultimo nodo
-        }
-    }
     public boolean contains(Object o){
         node<T> actual = root; //apunta al primer nodo
         while (actual != null){ //recorre la lista hasta el final
@@ -134,6 +122,19 @@ public class list <T> {
             index++; //incrementa el indice
         }
         return lastIndex; //retorna el ultimo indice
+    }
+    public T remove(int index){ //elimina el elemento en la posicion index
+        node<T> actual = root; //apunta al primer nodo
+        if (index == 0){ //si es el primer nodo
+            root = actual.getNext(); //apunta al siguiente nodo
+            return actual.getData(); //retorna el dato del nodo
+        }
+        for (int i = 0; i < index - 1; i++){ //recorre la lista hasta la posicion deseada
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        node<T> temp = actual.getNext(); //apunta al siguiente nodo
+        actual.setNext(temp.getNext()); //apunta al siguiente nodo
+        return temp.getData(); //retorna el dato del nodo
     }
 
 }
