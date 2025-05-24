@@ -28,4 +28,29 @@ public class Main{
     public static void main(String[] args) {
         
     }
+    public static <T extends Number> void ejecutarOperacion(Operador<T> op, int opcion) {
+        switch (opcion) {
+            case 1:
+                System.out.println("Resultado: " + suma(op.getValor1(), op.getValor2()));
+                break;
+            case 2:
+                System.out.println("Resultado: " + resta(op.getValor1(), op.getValor2()));
+                break;
+            case 3:
+                System.out.println("Resultado: " + producto(op.getValor1(), op.getValor2()));
+                break;
+            case 4:
+                System.out.println("Resultado: " + division(op.getValor1(), op.getValor2()));
+                break;
+            case 5:
+                System.out.println("Resultado: " + potencia(op.getValor1(), op.getValor2()));
+                break;
+            case 6:
+                System.out.println("Resultado: " + raizCuadrada(op.getValor1()));
+                break;
+            case 7:
+                System.out.println("Resultado: " + raizCubica(op.getValor1()));
+                break;
+        }
+    }
 }
