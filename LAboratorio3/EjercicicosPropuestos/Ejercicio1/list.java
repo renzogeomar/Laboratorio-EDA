@@ -35,7 +35,7 @@ public class list <T> {
         }
     }
     public void remove(){
-        if (root == null){ //verifica si la lista esta vacia
+        if (root == null){ 
             System.out.println("La lista esta vacia");
         }
         else{
@@ -46,7 +46,18 @@ public class list <T> {
             actual.setNext(null); //elimina el ultimo nodo
         }
     }
+    public boolean contains(Object o){
+        node<T> actual = root; //apunta al primer nodo
+        while (actual != null){ //recorre la lista hasta el final
+            if (actual.getData().equals(o)){ //compara el dato del nodo con el objeto
+                return true; //si lo encuentra retorna true
+            }
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        return false; //si no lo encuentra retorna false
+    }
     
+
 
 
 }
