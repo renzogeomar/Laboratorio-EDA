@@ -119,6 +119,22 @@ public class list <T> {
         }
         return -1; //si no lo encuentra retorna -1
     }
+    public boolean isEmpty(){ //verifica si la lista esta vacia
+        return root == null; //retorna true si la lista esta vacia
+    }
+    public int lastIndexOf(Object o){ //retorna la ultima posicion del objeto en la lista
+        node<T> actual = root; //apunta al primer nodo
+        int index = 0; //inicializa el indice
+        int lastIndex = -1; //inicializa el ultimo indice
+        while (actual != null){ //recorre la lista hasta el final
+            if (actual.getData().equals(o)){ //compara el dato del nodo con el objeto
+                lastIndex = index; //si lo encuentra guarda el indice
+            }
+            actual = actual.getNext(); //apunta al siguiente nodo
+            index++; //incrementa el indice
+        }
+        return lastIndex; //retorna el ultimo indice
+    }
 
 }
 
