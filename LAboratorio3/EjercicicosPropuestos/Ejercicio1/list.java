@@ -76,6 +76,15 @@ public class list <T> {
         }
         return false; //si no lo encuentra retorna false
     }
+    public boolean containsAll(Collection<?> c){ //verifica si la lista contiene todos los elementos de la coleccion
+        for (Object o : c) {
+            if (!contains(o)) { //si no contiene alguno retorna false
+                return false;
+            }
+        }
+        return true; //si contiene todos retorna true
+    }
+    
 }
 
 
