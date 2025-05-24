@@ -100,6 +100,13 @@ public class list <T> {
         }
         return false; //si no es una lista retorna false
     }
+    public T get(int index){ //retorna el elemento en la posicion index
+        node<T> actual = root; //apunta al primer nodo
+        for (int i = 0; i < index; i++){ //recorre la lista hasta la posicion deseada
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        return actual.getData(); //retorna el dato del nodo
+    }
 
 }
 
