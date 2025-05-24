@@ -2,7 +2,6 @@ package LAboratorio3.EjercicicosPropuestos.Ejercicio1;
 
 public class list <T> {
     private node<T> root; //apunta al primer nodo/ punto de partida
-    private int size; //tamaño de la lista
     
     public list(){
         this.root = null; //inicializa la lista vacia
@@ -56,7 +55,8 @@ public class list <T> {
         }
         return false; //si no lo encuentra retorna false
     }
-    
+
+
 
 
 
