@@ -55,7 +55,17 @@ public class list <T> {
     public void clear(){ //elimina todos los elementos de la lista
         root = null; //inicializa la lista vacia
     }
-    
+    public boolean contains(Object o){ //verifica si la lista contiene el elemento
+        node<T> actual = root; //apunta al primer nodo
+        while (actual != null){ //recorre la lista
+            if (actual.getData().equals(o)){ //verifica si el dato es igual al elemento
+                return true; //si lo encuentra retorna true
+            }
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        return false; //si no lo encuentra retorna false
+    }
+
 
 
 }
