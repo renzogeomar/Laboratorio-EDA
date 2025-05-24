@@ -34,6 +34,20 @@ public class list <T> {
             actual.setNext(newNode); //agrega el nuevo nodo a la lista
         }
     }
+    public void remove(){
+        if (root == null){ //verifica si la lista esta vacia
+            System.out.println("La lista esta vacia");
+        }
+        else{
+            node<T> actual = root; //apunta al primer nodo
+            while (actual.getNext() != null){ //recorre la lista hasta el final
+                actual = actual.getNext(); //apunta al siguiente nodo
+            }
+            actual.setNext(null); //elimina el ultimo nodo
+        }
+    }
+    
+
 
 }
 
