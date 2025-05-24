@@ -178,7 +178,18 @@ public class list <T> {
         }
         return size; //retorna el tamaño
     }
-
+    public list<T> subList(int fromIndex, int toIndex){ //retorna una sublista de la lista
+        list<T> subList = new list<T>(); //crea una nueva lista
+        node<T> actual = root; //apunta al primer nodo
+        for (int i = 0; i < fromIndex; i++){ //recorre la lista hasta la posicion deseada
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        for (int i = fromIndex; i < toIndex; i++){ //recorre la lista hasta la posicion deseada
+            subList.add(actual.getData()); //agrega el dato del nodo a la sublista
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        return subList; //retorna la sublista
+    }
 }
 
 
