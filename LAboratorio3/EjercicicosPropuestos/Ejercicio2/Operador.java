@@ -18,5 +18,14 @@ public class Operador <T extends Number>{
     public double resta(){
         return valor1.doubleValue() - valor2.doubleValue();
     }
+    public double multiplicacion(){
+        return valor1.doubleValue() * valor2.doubleValue();
+    }
+    public double division(){
+        if (valor2.doubleValue() == 0){
+            throw new ArithmeticException("No se puede dividir por cero");
+        }
+        return valor1.doubleValue() / valor2.doubleValue();
+    }
 
 }
