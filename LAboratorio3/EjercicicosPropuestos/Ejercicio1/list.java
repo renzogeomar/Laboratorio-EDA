@@ -107,6 +107,18 @@ public class list <T> {
         }
         return actual.getData(); //retorna el dato del nodo
     }
+    public int indexOf(Object o){ //retorna la posicion del objeto en la lista
+        node<T> actual = root; //apunta al primer nodo
+        int index = 0; //inicializa el indice
+        while (actual != null){ //recorre la lista hasta el final
+            if (actual.getData().equals(o)){ //compara el dato del nodo con el objeto
+                return index; //si lo encuentra retorna el indice
+            }
+            actual = actual.getNext(); //apunta al siguiente nodo
+            index++; //incrementa el indice
+        }
+        return -1; //si no lo encuentra retorna -1
+    }
 
 }
 
