@@ -160,6 +160,24 @@ public class list <T> {
         }
         return result;
     }
+    public T set(int index, T element){ //reemplaza el elemento en la posicion index
+        node<T> actual = root; //apunta al primer nodo
+        for (int i = 0; i < index; i++){ //recorre la lista hasta la posicion deseada
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        T oldData = actual.getData(); //guarda el dato del nodo
+        actual.setData(element); //reemplaza el dato del nodo
+        return oldData; //retorna el dato del nodo
+    }
+    public int size(){ //retorna el tamaño de la lista
+        node<T> actual = root; //apunta al primer nodo
+        int size = 0; //inicializa el tamaño
+        while (actual != null){ //recorre la lista hasta el final
+            size++; //incrementa el tamaño
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        return size; //retorna el tamaño
+    }
 
 }
 
