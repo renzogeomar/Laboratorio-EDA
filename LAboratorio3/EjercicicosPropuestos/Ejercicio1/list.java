@@ -84,7 +84,23 @@ public class list <T> {
         }
         return true; //si contiene todos retorna true
     }
-    
+    public boolean equals(Object o){ //compara la lista con otro objeto
+        if (o instanceof list<?>) { //verifica si el objeto es una lista
+            list<?> other = (list<?>) o; //convierte el objeto a una lista
+            node<T> actual = root; //apunta al primer nodo
+            node<?> otherActual = other.root; //apunta al primer nodo de la otra lista
+            while (actual != null && otherActual != null) { //recorre ambas listas hasta el final
+                if (!actual.getData().equals(otherActual.getData())) { //compara los datos de los nodos
+                    return false; //si no son iguales retorna false
+                }
+                actual = actual.getNext(); //apunta al siguiente nodo
+                otherActual = otherActual.getNext(); //apunta al siguiente nodo de la otra lista
+            }
+            return actual == null && otherActual == null; //si ambas listas son del mismo tamaño retorna true
+        }
+        return false; //si no es una lista retorna false
+    }
+
 }
 
 
