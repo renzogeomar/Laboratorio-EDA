@@ -136,6 +136,30 @@ public class list <T> {
         actual.setNext(temp.getNext()); //apunta al siguiente nodo
         return temp.getData(); //retorna el dato del nodo
     }
+    public boolean remove(Object o){ //elimina el objeto de la lista
+        node<T> actual = root; //apunta al primer nodo
+        if (actual.getData().equals(o)){ //compara el dato del nodo con el objeto
+            root = actual.getNext(); //apunta al siguiente nodo
+            return true; //retorna true si lo elimina
+        }
+        while (actual.getNext() != null){ //recorre la lista hasta el final
+            if (actual.getNext().getData().equals(o)){ //compara el dato del nodo con el objeto
+                actual.setNext(actual.getNext().getNext()); //apunta al siguiente nodo
+                return true; //retorna true si lo elimina
+            }
+            actual = actual.getNext(); //apunta al siguiente nodo
+        }
+        return false; //retorna false si no lo encuentra
+    }
+    public boolean removeAll(Collection<?> c){ //elimina todos los elementos de la coleccion
+        boolean result = false;
+        for (Object o : c) {
+            if (remove(o)) { //si lo elimina retorna true
+                result = true; //indica que se elimino al menos un elemento
+            }
+        }
+        return result;
+    }
 
 }
 
