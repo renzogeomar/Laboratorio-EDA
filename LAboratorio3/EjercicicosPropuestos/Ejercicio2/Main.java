@@ -3,6 +3,12 @@ public class Main{
     static <T extends Number> double suma(T valor1, T valor2){
         return (valor1.doubleValue() + valor2.doubleValue());
     }
+    static <T extends Number> double resta(T valor1, T valor2){
+        return (valor1.doubleValue() - valor2.doubleValue());
+    }
+    static <T extends Number> double multiplicacion(T valor1, T valor2){
+        return (valor1.doubleValue() * valor2.doubleValue());
+    }
     public static void main(String[] args) {
         
     }
