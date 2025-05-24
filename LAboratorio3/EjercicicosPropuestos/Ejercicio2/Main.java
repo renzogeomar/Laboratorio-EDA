@@ -19,6 +19,12 @@ public class Main{
     static <T extends Number> double potencia(T base, T exponente){
         return Math.pow(base.doubleValue(), exponente.doubleValue());
     }
+    static <T extends Number> double raizCuadrada(T valor){
+        return Math.sqrt(valor.doubleValue());
+    }
+    static <T extends Number> double raizCubica(T valor) {
+        return Math.cbrt(valor.doubleValue());
+    }
     public static void main(String[] args) {
         
     }
