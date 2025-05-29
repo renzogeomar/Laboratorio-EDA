@@ -1,6 +1,10 @@
 package Laboratorio4.EjerciciosResueltos.Ejercicio1;
 
 import java.io.*;
+/*
+ * Ejercicio 1: Crear una lista enlazada utilizando una clase LinkedList y una clase nodo 
+ * e ingresar los elementos 1, 2, 3, 4, 5, 6, 7 y 8.
+*/
 
 // Un programa java para implementar una simple lista enlazada
 public class LinkedList {
