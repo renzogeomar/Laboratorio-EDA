@@ -3,6 +3,10 @@ package Laboratorio4.EjerciciosResueltos.Ejercicio12;
 import java.io.*;
 import java.util.LinkedList;
 
+/*
+ *  Ejercicio 12: Mostrar un programa en java que utilice la 
+ * librería java.util y muestre el uso del método removeFirst().
+ */
 public class GFG2 {
     public static void main(String args[]) {
         LinkedList<Integer> list = new LinkedList<Integer>();

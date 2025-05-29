@@ -3,6 +3,10 @@ package Laboratorio4.EjerciciosResueltos.Ejercicio13;
 import java.io.*;
 import java.util.LinkedList;
 
+/*
+ * Ejercicio 13: Mostrar un programa en java que utilice la 
+ * librería java.util y muestre el uso del método removelast().
+ */
 public class GFG2 {
     public static void main(String args[]) {
         LinkedList<Integer> list = new LinkedList<Integer>();

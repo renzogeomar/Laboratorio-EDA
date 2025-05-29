@@ -4,6 +4,10 @@ package Laboratorio4.EjerciciosResueltos.Ejercicio8;
 // en una LinkedList
 import java.util.*;
 
+/*
+ * Ejercicio 08: Crear una lista enlazada utilizando la librería 
+ * java.util que implemente el cambio de elemento usando el método set().
+ */
 public class GFG {
     public static void main(String args[]) {
         LinkedList<String> ll = new LinkedList<>();

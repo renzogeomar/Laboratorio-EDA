@@ -2,6 +2,11 @@ package Laboratorio4.EjerciciosResueltos.Ejercicio14;
 
 import java.util.LinkedList;
 
+/*
+ * Ejercicio 14: Mostrar un programa en java que utilice la 
+ * librería java.util y muestre el uso del método addFirst() 
+ * y addLast().
+ */
 public class LinkedListExample {
     public static void main(String[] args) {
         // Crea una nueva linked list

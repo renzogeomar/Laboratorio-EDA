@@ -1,6 +1,9 @@
 package Laboratorio4.EjerciciosResueltos.Ejercicio2;
 
 import java.io.*;
+/*
+ * Ejercicio 2: Implementa una lista enlazada donde se pueda borrar un elemento por el elemento.
+ */
 
 // Un programa java para implementar
 // Una simple lista enlazada

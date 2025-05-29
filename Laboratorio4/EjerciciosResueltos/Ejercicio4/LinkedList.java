@@ -4,6 +4,11 @@ import java.io.*;
 
 // Un programa java para implementar
 // Una simple lista enlazada
+
+/*
+ * Ejercicio 04: Implemente una lista enlazada donde se pueda borrar un elemento 
+ * por el elemento y la posición.
+ */
 public class LinkedList {
     Node head; // cabecera de la lista
 
