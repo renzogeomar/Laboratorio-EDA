@@ -100,6 +100,21 @@ public class LinkedListCircular<E> {
             newNode.setNext(head); // El siguiente del nuevo nodo apunta a la cabeza
         }
     }
+    public void clear() {
+        head = null; // Limpia la lista estableciendo la cabeza a null
+    }
+    public Object clone() {
+        LinkedListCircular<E> clonedList = new LinkedListCircular<>();
+        if (head == null) {
+            return clonedList; // Retorna una lista vacía si la original está vacía
+        }
+        Node<E> current = head;
+        do {
+            clonedList.add(current.getData()); // Clona cada elemento de la lista original
+            current = current.getNext();
+        } while (current != head);
+        return clonedList; // Retorna la lista clonada
+    }
 
     
 }
