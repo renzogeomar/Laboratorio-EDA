@@ -69,7 +69,37 @@ public class LinkedListCircular<E> {
         }
         return result;
     }
-    
+    public void addFirst(E data) {
+        Node<E> newNode = new Node<>(data); // Crea un nuevo nodo
+        if (head == null) {
+            head = newNode; // Si la lista está vacía, el nuevo nodo es la cabeza
+            newNode.setNext(head); // El siguiente del nuevo nodo apunta a sí mismo
+        } 
+        else {
+            Node<E> current = head;
+            while (current.getNext() != head) { // Recorre hasta el último nodo
+                current = current.getNext();
+            }
+            newNode.setNext(head); // El siguiente del nuevo nodo apunta a la cabeza
+            current.setNext(newNode); // Enlaza el nuevo nodo al final de la lista
+            head = newNode; // Actualiza la cabeza a ser el nuevo nodo
+        }
+    }
+    public void addLast(E data) {
+        Node<E> newNode = new Node<>(data); // Crea un nuevo nodo
+        if (head == null) {
+            head = newNode; // Si la lista está vacía, el nuevo nodo es la cabeza
+            newNode.setNext(head); // El siguiente del nuevo nodo apunta a sí mismo
+        } 
+        else {
+            Node<E> current = head;
+            while (current.getNext() != head) { // Recorre hasta el último nodo
+                current = current.getNext();
+            }
+            current.setNext(newNode); // Enlaza el nuevo nodo al final de la lista
+            newNode.setNext(head); // El siguiente del nuevo nodo apunta a la cabeza
+        }
+    }
 
     
 }
