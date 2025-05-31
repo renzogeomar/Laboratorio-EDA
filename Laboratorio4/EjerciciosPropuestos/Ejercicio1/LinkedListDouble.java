@@ -1,5 +1,7 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio1;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 public class LinkedListDouble<E>{
     private NodeDouble<E> head; // Apunta al primer nodo de la lista
     private NodeDouble<E> tail; // Apunta al último nodo de la lista
@@ -102,5 +104,35 @@ public class LinkedListDouble<E>{
             current = current.getNext(); // Avanza al siguiente nodo
         }
         return newList; // Retorna la nueva lista clonada
+    }
+    public E contains(Object o) {
+        NodeDouble<E> current = head; // Apunta al primer nodo
+        while (current != null) { // Recorre la lista hasta el final
+            if (current.getData().equals(o)) { // Compara el dato del nodo con el objeto
+                return current.getData(); // Si lo encuentra, retorna el dato
+            }
+            current = current.getNext(); // Avanza al siguiente nodo
+        }
+        return null; // Si no lo encuentra, retorna null
+    }
+    public Iterator<E> descendingIterator() {
+        return new Iterator<E>() {
+            private NodeDouble<E> current = tail; // Comienza desde el último nodo
+
+            @Override
+            public boolean hasNext() {
+                return current != null; // Verifica si hay un nodo siguiente
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException(); // Lanza excepción si no hay siguiente
+                }
+                E data = current.getData(); // Obtiene el dato del nodo actual
+                current = current.getPrev(); // Avanza al nodo anterior
+                return data; // Retorna el dato
+            }
+        };
     }
 }
