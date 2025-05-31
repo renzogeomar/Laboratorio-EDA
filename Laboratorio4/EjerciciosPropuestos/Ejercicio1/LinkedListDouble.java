@@ -90,4 +90,17 @@ public class LinkedListDouble<E>{
             tail = newNode; // Actualiza la cola a ser el nuevo nodo
         }
     }
+    public void clear() {
+        head = null; // Inicializa la lista vacía
+        tail = null; // Inicializa la lista vacía
+    }
+    public Object clone() {
+        LinkedListDouble<E> newList = new LinkedListDouble<>(); // Crea una nueva lista
+        NodeDouble<E> current = head; // Apunta al primer nodo de la lista original
+        while (current != null) {
+            newList.add(current.getData()); // Agrega cada elemento a la nueva lista
+            current = current.getNext(); // Avanza al siguiente nodo
+        }
+        return newList; // Retorna la nueva lista clonada
+    }
 }

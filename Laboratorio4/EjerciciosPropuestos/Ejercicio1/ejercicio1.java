@@ -22,7 +22,8 @@ public class ejercicio1 {
         listEnteros.printList(); 
         listCadenas.printList();
 
-        // Probando addAll
+        // -------------------Probando addAll----------------------------
+        System.out.println("-------------------Probando addAll----------------------------");
 
         LinkedListDouble<String> list = new LinkedListDouble<>();
         // Crear una colección
@@ -30,14 +31,22 @@ public class ejercicio1 {
         // Probar addAll(Collection)
         System.out.println("Agregando colección al final:");
         list.addAll(collection1);
-        list.printList(); // Debería imprimir: A B C
+        list.printList(); 
         // Crear otra colección
         Collection<String> collection2 = Arrays.asList("X", "Y");
         // Probar addAll(int index, Collection)
         System.out.println("Agregando colección en la posición 1:");
         list.addAll(1, collection2);
-        list.printList(); // Debería imprimir: A X Y B C
+        list.printList(); 
 
-
+        // -------------------Probando addFirst y addLast----------------------------
+        System.out.println("-------------------Probando addFirst y addLast----------------------------");
+        LinkedListDouble<String> list2 = new LinkedListDouble<>();
+        // Agregar elementos al principio y al final de la lista
+        list2.addFirst("Inicio");
+        list2.add("prueba");
+        list2.add("prueba2");
+        list2.addLast("Final");
+        list2.printList(); // Imprime: Inicio Final
     }    
 }
