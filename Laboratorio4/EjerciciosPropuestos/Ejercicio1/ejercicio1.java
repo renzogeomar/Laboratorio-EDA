@@ -2,6 +2,7 @@ package Laboratorio4.EjerciciosPropuestos.Ejercicio1;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class ejercicio1 {
     public static void main(String[] args) {
@@ -62,5 +63,20 @@ public class ejercicio1 {
         list3.printList(); // Imprime: (lista vacía)
         System.out.println("Lista clonada:");
         clonedList.printList(); 
+
+        // -------------------Probando contains y descendingIterator----------------------------
+        System.out.println("-------------------Probando contains y descendingIterator----------------------------");
+        LinkedListDouble<String> list4 = new LinkedListDouble<>();
+        list4.add("Elemento1");
+        list4.add("Elemento2");
+        list4.add("Elemento3");
+        list4.add("Elemento4");
+        System.out.println("Lista contiene 'Elemento1': " + list4.contains("Elemento1")); 
+        System.out.println("Lista contiene 'Elemento3': " + list4.contains("Elemento5")); 
+        System.out.println("Iterando en orden descendente:");
+        Iterator<String> it = list4.descendingIterator();
+        while (it.hasNext()) {
+            System.out.println(it.next()); 
+        }
     }    
 }
