@@ -77,7 +77,14 @@ public class ejercicio2 {
             System.out.println(it.next());
         }
 
-        
-
+        // -------------------Probando element y get----------------------------
+        System.out.println("-------------------Probando element y get----------------------------");
+        LinkedListCircular<String> list5 = new LinkedListCircular<>();
+        list5.add("Elemento1");
+        list5.add("Elemento2");
+        System.out.println("Primer elemento usando element(): " + list5.element()); // Retorna el primer elemento
+        System.out.println("Elemento en la posición 1: " + list5.get(1)); // Obtiene el segundo elemento
+        System.out.println("Elemento en la posición 2: " + list5.get(2)); // Obtiene un elemento fuera de rango
+ 
     }
 }
