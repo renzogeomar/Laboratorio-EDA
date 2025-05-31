@@ -28,4 +28,5 @@ public class NodeDouble<E> {
     public void setPrev(NodeDouble<E> prev) {
         this.prev = prev; // Establece el nodo anterior
     }
+    
 }

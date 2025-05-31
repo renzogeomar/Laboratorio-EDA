@@ -1,5 +1,5 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio1;
-
+import java.util.Collection;
 public class LinkedListDouble<E>{
     private NodeDouble<E> head; // Apunta al primer nodo de la lista
     private NodeDouble<E> tail; // Apunta al último nodo de la lista
@@ -7,6 +7,14 @@ public class LinkedListDouble<E>{
     public LinkedListDouble() {
         this.head = null; // Inicializa la lista vacía
         this.tail = null; // Inicializa la lista vacía
+    }
+    public void printList() {
+        NodeDouble<E> current = head;
+        while (current != null) {
+            System.out.print(current.getData() + " ");
+            current = current.getNext();
+        }
+        System.out.println(); // Salto de línea al final
     }
     public void add(E data) {
         NodeDouble<E> newNode = new NodeDouble<>(data); // Crea un nuevo nodo
@@ -43,5 +51,21 @@ public class LinkedListDouble<E>{
                 }
             }
         }
+    }
+    public boolean addAll(Collection<? extends E> c) {
+        boolean result = false;
+        for (E data : c) {
+            add(data); // Agrega cada elemento de la colección a la lista
+            result = true; // Indica que se agregó al menos un elemento
+        }
+        return result;
+    }
+    public boolean addAll(int index, Collection<? extends E> c) {
+        boolean result = false;
+        for (E data : c) {
+            add(data, index); // Agrega cada elemento de la colección a la lista
+            result = true; // Indica que se agregó al menos un elemento
+        }
+        return result;   
     }
 }
