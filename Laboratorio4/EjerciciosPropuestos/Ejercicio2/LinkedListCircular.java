@@ -1,5 +1,6 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio2;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class LinkedListCircular<E> {
     private Node<E> head; // Apunta al primer nodo de la lista
@@ -114,6 +115,40 @@ public class LinkedListCircular<E> {
             current = current.getNext();
         } while (current != head);
         return clonedList; // Retorna la lista clonada
+    }
+    public boolean contains(Object o) {
+        if (head == null) {
+            return false; // Retorna false si la lista está vacía
+        }
+        Node<E> current = head;
+        do {
+            if (current.getData().equals(o)) {
+                return true; // Retorna true si encuentra el elemento
+            }
+            current = current.getNext();
+        } while (current != head);
+        return false; // Retorna false si no encuentra el elemento
+    }
+    public Iterator<E> descendingIterator() {
+        return new Iterator<E>() {
+            private Node<E> current = head; // Comienza desde el primer nodo
+            private boolean firstIteration = true; // Indica si es la primera iteración
+
+            @Override
+            public boolean hasNext() {
+                return firstIteration || current != head; // Verifica si hay un nodo siguiente
+            }
+
+            @Override
+            public E next() {
+                if (firstIteration) {
+                    firstIteration = false; // Marca que ya no es la primera iteración
+                } else {
+                    current = current.getNext(); // Avanza al siguiente nodo
+                }
+                return current.getData(); // Retorna el dato del nodo actual
+            }
+        };
     }
 
     

@@ -47,5 +47,19 @@ public class ejercicio2 {
         list2.addLast("Final");
         list2.printList();
 
+        // -------------------Probando clear y clone----------------------------
+        System.out.println("-------------------Probando clear y clone----------------------------");
+        LinkedListCircular<String> list3 = new LinkedListCircular<>();
+        list3.add("Elemento1");
+        list3.add("Elemento2");
+        System.out.println("Lista original:");
+        list3.printList();
+        LinkedListCircular<String> clonedList = (LinkedListCircular<String>) list3.clone(); // Clona la lista
+        System.out.println("Lista clonada:");
+        clonedList.printList(); // Imprime la lista clonada
+        list3.clear(); // Limpia la lista original
+        System.out.println("Lista después de clear:");
+        list3.printList(); // Imprime la lista original después de limpiar
+
     }
 }
