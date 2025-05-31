@@ -1,4 +1,5 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio2;
+import java.util.Collection;
 
 public class LinkedListCircular<E> {
     private Node<E> head; // Apunta al primer nodo de la lista
@@ -51,6 +52,22 @@ public class LinkedListCircular<E> {
                 head = newNode; // Actualiza la cabeza si es necesario
             }
         }
+    }
+    public boolean addAll(Collection<? extends E> c) {
+        boolean result = false;
+        for (E data : c) {
+            add(data); // Agrega cada elemento de la colección a la lista
+            result = true; // Indica que se agregó al menos un elemento
+        }
+        return result;
+    }
+    public boolean addAll(int index, Collection<? extends E> c) {
+        boolean result = false;
+        for (E data : c) {
+            add(data, index); // Agrega cada elemento de la colección a la lista en la posición especificada
+            result = true; // Indica que se agregó al menos un elemento
+        }
+        return result;
     }
     
 

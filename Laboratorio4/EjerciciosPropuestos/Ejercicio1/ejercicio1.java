@@ -48,7 +48,7 @@ public class ejercicio1 {
         list2.add("prueba");
         list2.add("prueba2");
         list2.addLast("Final");
-        list2.printList(); // Imprime: Inicio Final
+        list2.printList(); 
 
         // -------------------Probando clear y clone----------------------------
         System.out.println("-------------------Probando clear y clone----------------------------");
@@ -60,7 +60,7 @@ public class ejercicio1 {
         LinkedListDouble<String> clonedList = (LinkedListDouble<String>) list3.clone(); // Clona la lista
         list3.clear(); // Limpia la lista
         System.out.println("Lista después de clear:");
-        list3.printList(); // Imprime: (lista vacía)
+        list3.printList(); 
         System.out.println("Lista clonada:");
         clonedList.printList(); 
 
