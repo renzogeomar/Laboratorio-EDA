@@ -1,6 +1,7 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio2;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class ejercicio2 {
     public static void main(String[] args) {
@@ -60,6 +61,23 @@ public class ejercicio2 {
         list3.clear(); // Limpia la lista original
         System.out.println("Lista después de clear:");
         list3.printList(); // Imprime la lista original después de limpiar
+
+        // -------------------Probando contains y descendingIterator----------------------------
+        System.out.println("-------------------Probando contains y descendingIterator----------------------------");
+        LinkedListCircular<String> list4 = new LinkedListCircular<>();
+        list4.add("Elemento1");
+        list4.add("Elemento2");
+        System.out.println("Lista original:");
+        list4.printList();
+        System.out.println("¿Contiene 'Elemento1'? " + list4.contains("Elemento1")); // Verifica si contiene un elemento
+        System.out.println("¿Contiene 'Elemento3'? " + list4.contains("Elemento3")); // Verifica si contiene un elemento no existente
+        System.out.println("Iterando en orden inverso:");
+        Iterator<String> it = list4.descendingIterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+
+        
 
     }
 }

@@ -150,6 +150,26 @@ public class LinkedListCircular<E> {
             }
         };
     }
+    public E element() {
+        if (head == null) {
+            throw new IllegalStateException("La lista está vacía."); // Lanza una excepción si la lista está vacía
+        }
+        return head.getData(); // Retorna el dato del primer nodo
+    }
+    public E get(int index) {
+        if (head == null) {
+            throw new IndexOutOfBoundsException("La lista está vacía."); // Lanza una excepción si la lista está vacía
+        }
+        Node<E> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.getNext(); // Avanza al siguiente nodo
+            if (current == head) {
+                throw new IndexOutOfBoundsException("Índice fuera de rango."); // Lanza una excepción si el índice es inválido
+            }
+        }
+        return current.getData(); // Retorna el dato del nodo en la posición especificada
+    }
+
 
     
 }
