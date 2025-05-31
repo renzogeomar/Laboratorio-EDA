@@ -68,4 +68,26 @@ public class LinkedListDouble<E>{
         }
         return result;   
     }
+    public void addFirst(E data) {
+        NodeDouble<E> newNode = new NodeDouble<>(data); // Crea un nuevo nodo
+        if (head == null) {
+            head = newNode; // Si la lista está vacía, el nuevo nodo es la cabeza
+            tail = newNode; // El nuevo nodo también es la cola
+        } else {
+            newNode.setNext(head); // Enlaza el nuevo nodo al inicio de la lista
+            head.setPrev(newNode); // Establece el nodo anterior del nodo actual
+            head = newNode; // Actualiza la cabeza a ser el nuevo nodo
+        }
+    }
+    public void addLast(E data) {
+        NodeDouble<E> newNode = new NodeDouble<>(data); // Crea un nuevo nodo
+        if (head == null) {
+            head = newNode; // Si la lista está vacía, el nuevo nodo es la cabeza
+            tail = newNode; // El nuevo nodo también es la cola
+        } else {
+            tail.setNext(newNode); // Enlaza el nuevo nodo al final de la lista
+            newNode.setPrev(tail); // Establece el nodo anterior del nuevo nodo
+            tail = newNode; // Actualiza la cola a ser el nuevo nodo
+        }
+    }
 }
