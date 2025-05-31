@@ -2,12 +2,57 @@ package Laboratorio4.EjerciciosPropuestos.Ejercicio2;
 
 public class LinkedListCircular<E> {
     private Node<E> head; // Apunta al primer nodo de la lista
-    private Node<E> tail; // Apunta al último nodo de la lista
     
     public LinkedListCircular() {
         this.head = null; // Inicializa la lista vacía
-        this.tail = null; // Inicializa la lista vacía
+    }
+
+    public void printList() {
+        if (head == null) {
+            System.out.println("La lista está vacía.");
+            return;
+        }
+        Node<E> current = head;
+        do {
+            System.out.print(current.getData() + " ");
+            current = current.getNext();
+        } while (current != head);
+        System.out.println(); // Salto de línea al final
+    }
+    public void add(E data) {
+        Node<E> newNode = new Node<>(data); // Crea un nuevo nodo
+        if (head == null) {
+            head = newNode; // Si la lista está vacía, el nuevo nodo es la cabeza
+            newNode.setNext(head); // El siguiente del nuevo nodo apunta a sí mismo
+        } 
+        else {
+            Node<E> current = head;
+            while (current.getNext() != head) { // Recorre hasta el último nodo
+                current = current.getNext();
+            }
+            current.setNext(newNode); // Enlaza el nuevo nodo al final de la lista
+            newNode.setNext(head); // El siguiente del nuevo nodo apunta a la cabeza
+        }
+    }
+    public void add(E data, int position) {
+        Node<E> newNode = new Node<>(data); // Crea un nuevo nodo
+        if (head == null) {
+            head = newNode; // Si la lista está vacía, el nuevo nodo es la cabeza
+            newNode.setNext(head); // El siguiente del nuevo nodo apunta a sí mismo
+        } 
+        else {
+            Node<E> current = head;
+            for (int i = 0; i < position - 1 && current.getNext() != head; i++) { // Recorre hasta la posición deseada
+                current = current.getNext();
+            }
+            newNode.setNext(current.getNext()); // Enlaza el nuevo nodo al siguiente del nodo actual
+            current.setNext(newNode); // Enlaza el nuevo nodo al final de la lista
+            if (newNode.getNext() == head) {
+                head = newNode; // Actualiza la cabeza si es necesario
+            }
+        }
     }
     
+
     
 }
