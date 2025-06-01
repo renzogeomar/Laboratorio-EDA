@@ -148,6 +148,51 @@ public class LinkedList<E>{
 
         return list;
     }
+    public static <T> LinkedList<T> deleteAtPosition(LinkedList<T> list, int index) {
+        Node<T> currNode = list.head;
+        Node<T> prev = null;
+
+        // CASO 1: El índice es 0 y la lista no está vacía
+        if (index == 0 && currNode != null) {
+            list.head = currNode.getNext(); // Cambia la cabeza
+            System.out.println(index + " position element deleted");
+            return list;
+        }
+
+        // CASO 2: Índice mayor que 0
+        int counter = 0;
+
+        while (currNode != null) {
+            if (counter == index) {
+                // Elimina el nodo de la lista
+                if (prev != null) {
+                    prev.setNext(currNode.getNext());
+                }
+                System.out.println(index + " position element deleted");
+                return list;
+            }
+
+            // Continúa recorriendo
+            prev = currNode;
+            currNode = currNode.getNext();
+            counter++;
+        }
+
+        // CASO 3: Índice fuera de rango
+        System.out.println(index + " position element not found");
+        return list;
+    }
+    public int size() {
+        int count = 0;
+        Node<E> current = head;
+        while (current != null) {
+            count++;
+            current = current.getNext();
+        }
+        return count;
+    }
+
+
 
     
 

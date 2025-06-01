@@ -76,5 +76,19 @@ public class ejercicio5 {
             System.out.println(descendingIterator.next());
         }
 
+        // -------------------Probando insert y deleteByKey----------------------------
+        System.out.println("-------------------Probando insert y deleteByKey----------------------------");
+        LinkedList<String> list5 = new LinkedList<>();
+        list5.add("Elemento1");
+        list5.add("Elemento2");
+        System.out.println("Lista original:");
+        list5.printList();
+        LinkedList.insert(list5, "Elemento3"); // Inserta "Elemento3"
+        System.out.println("Lista después de insertar 'Elemento3':");
+        list5.printList();
+        LinkedList.deleteByKey(list5,"Elemento2"); // Elimina "Elemento2" de la lista
+        System.out.println("Lista después de eliminar 'Elemento2':");
+        list5.printList();
+
     }    
 }
