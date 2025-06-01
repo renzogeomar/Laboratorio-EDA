@@ -44,4 +44,20 @@ public class LinkedList<E>{
         newNode.setNext(current.getNext());
         current.setNext(newNode);
     }
+    public boolean addAll(Collection<? extends E> c) {
+        boolean added = false;
+        for (E item : c) {
+            add(item);
+            added = true;
+        }
+        return added;
+    }
+
+    public boolean addAll(int index, Collection<? extends E> c) {
+        int pos = index;
+        for (E item : c) {
+            add(item, pos++);
+        }
+        return !c.isEmpty();
+    }
 }
