@@ -39,5 +39,16 @@ public class ejercicio5 {
         list.addAll(1, collection2);
         list.printList();
 
+        // -------------------Probando addFirst y addLast----------------------------
+        System.out.println("-------------------Probando addFirst y addLast----------------------------");
+        LinkedList<String> list2 = new LinkedList<>();
+        // Agregar elementos al principio y al final de la lista
+        list2.addFirst("Inicio");
+        list2.add("prueba");
+        list2.add("prueba2");
+        list2.addLast("Final");
+        list2.printList();
+        
+
     }    
 }

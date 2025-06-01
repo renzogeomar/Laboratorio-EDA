@@ -69,4 +69,18 @@ public class LinkedList<E>{
     public void addLast(E data) {
         add(data);
     }
+    public void clear() {
+        head = null;
+    }
+
+    public Object clone() {
+        LinkedList<E> newList = new LinkedList<>();
+        Node<E> current = head;
+        while (current != null) {
+            newList.add(current.getData());
+            current = current.getNext();
+        }
+        return newList;
+    }
+    
 }
