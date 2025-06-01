@@ -137,4 +137,135 @@ public class LinkedListDouble<E>{
             }
         };
     }
+    public static <E> LinkedListDouble<E> insert(LinkedListDouble<E> list, E data) {
+        NodeDouble<E> newNode = new NodeDouble<>(data);
+        newNode.setNext(null);
+        newNode.setPrev(null);
+
+        if (list.head == null) {
+            list.head = newNode;
+            list.tail = newNode;
+        } else {
+            list.tail.setNext(newNode);
+            newNode.setPrev(list.tail);
+            list.tail = newNode;
+        }
+
+        return list;
+    }
+
+    // Método para eliminar por clave (valor)
+    public static <E> LinkedListDouble<E> deleteByKey(LinkedListDouble<E> list, E key) {
+        NodeDouble<E> current = list.head;
+
+        while (current != null) {
+            if (current.getData().equals(key)) {
+                if (current == list.head) { // si es cabeza
+                    list.head = current.getNext();
+                    if (list.head != null) {
+                        list.head.setPrev(null);
+                    } else {
+                        list.tail = null; // lista vacía después de eliminar
+                    }
+                } else if (current == list.tail) { // si es cola
+                    list.tail = current.getPrev();
+                    if (list.tail != null) {
+                        list.tail.setNext(null);
+                    } else {
+                        list.head = null; // lista vacía después de eliminar
+                    }
+                } else { // nodo intermedio
+                    current.getPrev().setNext(current.getNext());
+                    current.getNext().setPrev(current.getPrev());
+                }
+                System.out.println(key + " found and deleted");
+                return list;
+            }
+            current = current.getNext();
+        }
+        System.out.println(key + " not found");
+        return list;
+    }
+
+    // Método para eliminar por posición
+    public static <E> LinkedListDouble<E> deleteAtPosition(LinkedListDouble<E> list, int index) {
+        if (index < 0) {
+            System.out.println(index + " position element not found");
+            return list;
+        }
+
+        NodeDouble<E> current = list.head;
+        int counter = 0;
+
+        while (current != null) {
+            if (counter == index) {
+                if (current == list.head) {
+                    list.head = current.getNext();
+                    if (list.head != null) {
+                        list.head.setPrev(null);
+                    } else {
+                        list.tail = null;
+                    }
+                } else if (current == list.tail) {
+                    list.tail = current.getPrev();
+                    if (list.tail != null) {
+                        list.tail.setNext(null);
+                    } else {
+                        list.head = null;
+                    }
+                } else {
+                    current.getPrev().setNext(current.getNext());
+                    current.getNext().setPrev(current.getPrev());
+                }
+                System.out.println(index + " position element deleted");
+                return list;
+            }
+            current = current.getNext();
+            counter++;
+        }
+
+        System.out.println(index + " position element not found");
+        return list;
+    }
+
+    // Método para obtener tamaño
+    public int size() {
+        int count = 0;
+        NodeDouble<E> current = head;
+        while (current != null) {
+            count++;
+            current = current.getNext();
+        }
+        return count;
+    }
+
+    // Eliminar el primer nodo
+    public void removeFirst() {
+        if (head == null) {
+            System.out.println("List is empty. Nothing to remove.");
+            return;
+        }
+        System.out.println("Removed: " + head.getData());
+        head = head.getNext();
+        if (head != null) {
+            head.setPrev(null);
+        } else {
+            tail = null; // lista vacía ahora
+        }
+    }
+
+    // Eliminar el último nodo
+    public void removeLast() {
+        if (tail == null) {
+            System.out.println("List is empty. Nothing to remove.");
+            return;
+        }
+        System.out.println("Removed: " + tail.getData());
+        tail = tail.getPrev();
+        if (tail != null) {
+            tail.setNext(null);
+        } else {
+            head = null; // lista vacía ahora
+        }
+    }
 }
