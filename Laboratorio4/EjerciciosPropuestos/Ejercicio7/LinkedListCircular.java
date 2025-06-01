@@ -1,4 +1,4 @@
-package Laboratorio4.EjerciciosPropuestos.Ejercicio2;
+package Laboratorio4.EjerciciosPropuestos.Ejercicio7;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -129,27 +129,7 @@ public class LinkedListCircular<E> {
         } while (current != head);
         return false; // Retorna false si no encuentra el elemento
     }
-    public Iterator<E> descendingIterator() {
-        return new Iterator<E>() {
-            private Node<E> current = head; // Comienza desde el primer nodo
-            private boolean firstIteration = true; // Indica si es la primera iteración
 
-            @Override
-            public boolean hasNext() {
-                return firstIteration || current != head; // Verifica si hay un nodo siguiente
-            }
-
-            @Override
-            public E next() {
-                if (firstIteration) {
-                    firstIteration = false; // Marca que ya no es la primera iteración
-                } else {
-                    current = current.getNext(); // Avanza al siguiente nodo
-                }
-                return current.getData(); // Retorna el dato del nodo actual
-            }
-        };
-    }
     public E element() {
         if (head == null) {
             throw new IllegalStateException("La lista está vacía."); // Lanza una excepción si la lista está vacía
@@ -170,6 +150,138 @@ public class LinkedListCircular<E> {
         return current.getData(); // Retorna el dato del nodo en la posición especificada
     }
 
+    public void insert(E data) {
+        Node<E> newNode = new Node<>(data);
+        if (head == null) {
+            head = newNode;
+            newNode.setNext(head);
+        } else {
+            Node<E> current = head;
+            while (current.getNext() != head) {
+                current = current.getNext();
+            }
+            current.setNext(newNode);
+            newNode.setNext(head);
+        }
+    }
 
+    public boolean deleteByKey(E key) {
+        if (head == null) return false;
+
+        Node<E> current = head;
+        Node<E> prev = null;
+
+        do {
+            if (current.getData().equals(key)) {
+                if (prev == null) { // Eliminar cabeza
+                    // Si solo hay un nodo
+                    if (current.getNext() == head) {
+                        head = null;
+                    } else {
+                        // Buscar último nodo para actualizar su next
+                        Node<E> last = head;
+                        while (last.getNext() != head) {
+                            last = last.getNext();
+                        }
+                        head = head.getNext();
+                        last.setNext(head);
+                    }
+                } else {
+                    prev.setNext(current.getNext());
+                }
+                return true; // eliminado exitosamente
+            }
+            prev = current;
+            current = current.getNext();
+        } while (current != head);
+
+        return false; // no encontrado
+    }
+
+    public boolean deleteAtPosition(int index) {
+        if (head == null || index < 0) return false;
+
+        Node<E> current = head;
+        Node<E> prev = null;
+        int count = 0;
+
+        do {
+            if (count == index) {
+                if (prev == null) { // eliminar cabeza
+                    // Si solo hay un nodo
+                    if (current.getNext() == head) {
+                        head = null;
+                    } else {
+                        Node<E> last = head;
+                        while (last.getNext() != head) {
+                            last = last.getNext();
+                        }
+                        head = head.getNext();
+                        last.setNext(head);
+                    }
+                } else {
+                    prev.setNext(current.getNext());
+                }
+                return true;
+            }
+            prev = current;
+            current = current.getNext();
+            count++;
+        } while (current != head);
+
+        return false; 
+    }
+
+    public int size() {
+        if (head == null) return 0;
+        int count = 0;
+        Node<E> current = head;
+        do {
+            count++;
+            current = current.getNext();
+        } while (current != head);
+        return count;
+    }
+
+    public boolean removeFirst() {
+        if (head == null) return false;
+
+        // Si solo hay un nodo
+        if (head.getNext() == head) {
+            head = null;
+            return true;
+        }
+
+        // Buscar último nodo para actualizar su next
+        Node<E> last = head;
+        while (last.getNext() != head) {
+            last = last.getNext();
+        }
+        head = head.getNext();
+        last.setNext(head);
+        return true;
+    }
+
+    public boolean removeLast() {
+        if (head == null) return false;
+
+        // Si solo hay un nodo
+        if (head.getNext() == head) {
+            head = null;
+            return true;
+        }
+
+        Node<E> current = head;
+        Node<E> prev = null;
+
+        while (current.getNext() != head) {
+            prev = current;
+            current = current.getNext();
+        }
+
+        // 'current' es el último nodo, 'prev' es penúltimo
+        prev.setNext(head);
+        return true;
+    }
     
 }
