@@ -191,9 +191,37 @@ public class LinkedList<E>{
         }
         return count;
     }
+    public void removeFirst() {
+        if (head == null) {
+            System.out.println("List is empty. Nothing to remove.");
+            return;
+        }
+        System.out.println("Removed: " + head.getData());
+        head = head.getNext();
+    }
+    public void removeLast() {
+        if (head == null) {
+            System.out.println("List is empty. Nothing to remove.");
+            return;
+        }
 
+        if (head.getNext() == null) {
+            // Solo hay un elemento
+            System.out.println("Removed: " + head.getData());
+            head = null;
+            return;
+        }
 
+        Node<E> current = head;
+        Node<E> prev = null;
 
-    
+        while (current.getNext() != null) {
+            prev = current;
+            current = current.getNext();
+        }
+
+        System.out.println("Removed: " + current.getData());
+        prev.setNext(null);
+    }
 
 }

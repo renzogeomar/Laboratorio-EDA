@@ -90,5 +90,18 @@ public class ejercicio5 {
         System.out.println("Lista después de eliminar 'Elemento2':");
         list5.printList();
 
+        // -------------------Probando deleteAtPosition y size----------------------------
+        System.out.println("-------------------Probando deleteAtPosition y size----------------------------");
+        LinkedList<String> list6 = new LinkedList<>();
+        list6.add("Elemento1");
+        list6.add("Elemento2");
+        list6.add("Elemento3");
+        System.out.println("Lista original:");
+        list6.printList();
+        LinkedList.deleteAtPosition(list6,1); // Elimina el elemento en la posición 1
+        System.out.println("Lista después de eliminar el elemento en la posición 1:");
+        list6.printList();
+        System.out.println("Tamaño de la lista 6: " + list6.size()); // Imprime el tamaño de la lista 6
+
     }    
 }
