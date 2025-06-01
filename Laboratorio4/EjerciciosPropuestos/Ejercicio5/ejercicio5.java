@@ -62,6 +62,19 @@ public class ejercicio5 {
         list3.clear(); // Limpia la lista original
         System.out.println("Lista después de clear:");
         list3.printList();
-        
+
+        // -------------------Probando contains y descendingIterator----------------------------
+        System.out.println("-------------------Probando contains y descendingIterator----------------------------");
+        LinkedList<String> list4 = new LinkedList<>();
+        list4.add("Elemento1");
+        list4.add("Elemento2");
+        System.out.println("Lista contiene 'Elemento1': " + list4.contains("Elemento1"));
+        System.out.println("Lista contiene 'Elemento3': " + list4.contains("Elemento3"));
+        System.out.println("Iterando en orden descendente:");
+        Iterator<String> descendingIterator = list4.descendingIterator();
+        while (descendingIterator.hasNext()) {
+            System.out.println(descendingIterator.next());
+        }
+
     }    
 }

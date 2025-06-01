@@ -1,7 +1,6 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio5;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Stack;
 public class LinkedList<E>{
     private Node<E> head;
@@ -103,5 +102,53 @@ public class LinkedList<E>{
         }
         return stack.iterator();
     }
+    public static <E> LinkedList<E> insert(LinkedList<E> list, E data) {
+        Node<E> newNode = new Node<>(data);
+        newNode.setNext(null);
+
+        if (list.head == null) {
+            list.head = newNode;
+        } else {
+            Node<E> last = list.head;
+            while (last.getNext() != null) {
+                last = last.getNext();
+            }
+            last.setNext(newNode);
+        }
+
+        return list;
+    }
+    public static <T> LinkedList<T> deleteByKey(LinkedList<T> list, T key) {
+        Node<T> currNode = list.head;
+        Node<T> prev = null;
+
+        // CASO 1: El nodo cabeza tiene el dato a eliminar
+        if (currNode != null && currNode.getData().equals(key)) {
+            list.head = currNode.getNext(); // cambia la cabeza
+            System.out.println(key + " found and deleted");
+            return list;
+        }
+
+        // CASO 2: El dato está en otro nodo
+        while (currNode != null && !currNode.getData().equals(key)) {
+            prev = currNode;
+            currNode = currNode.getNext();
+        }
+
+        // CASO 2 continuación: Si se encuentra el dato
+        if (currNode != null) {
+            prev.setNext(currNode.getNext()); // desvincula el nodo
+            System.out.println(key + " found and deleted");
+        }
+
+        // CASO 3: No se encontró el dato
+        if (currNode == null) {
+            System.out.println(key + " not found");
+        }
+
+        return list;
+    }
+
+    
 
 }
