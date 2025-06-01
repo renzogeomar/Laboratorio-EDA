@@ -17,7 +17,7 @@ public class Node<E> {
     public Node<E> getNext() {
         return next; // Retorna el siguiente nodo
     }
-    public void setNext(NodeDouble<E> next) {
+    public void setNext(Node<E> next) {
         this.next = next; // Establece el siguiente nodo
     }
 
