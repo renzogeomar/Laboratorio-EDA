@@ -2,6 +2,7 @@ package Laboratorio4.EjerciciosPropuestos.Ejercicio5;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 public class LinkedList<E>{
     private Node<E> head;
     public LinkedList() {
@@ -82,5 +83,25 @@ public class LinkedList<E>{
         }
         return newList;
     }
-    
+
+    public E contains(Object o) {
+        Node<E> current = head;
+        while (current != null) {
+            if (current.getData().equals(o)) {
+                return current.getData();
+            }
+            current = current.getNext();
+        }
+        return null;
+    }
+    public Iterator<E> descendingIterator() {
+        Stack<E> stack = new Stack<>();
+        Node<E> current = head;
+        while (current != null) {
+            stack.push(current.getData());
+            current = current.getNext();
+        }
+        return stack.iterator();
+    }
+
 }
