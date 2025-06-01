@@ -60,4 +60,13 @@ public class LinkedList<E>{
         }
         return !c.isEmpty();
     }
+    public void addFirst(E data) {
+        Node<E> newNode = new Node<>(data);
+        newNode.setNext(head);
+        head = newNode;
+    }
+
+    public void addLast(E data) {
+        add(data);
+    }
 }
