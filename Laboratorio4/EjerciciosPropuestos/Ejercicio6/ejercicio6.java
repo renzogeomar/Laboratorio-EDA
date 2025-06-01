@@ -1,11 +1,17 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio6;
 
 import java.util.Arrays;
-import java.util.Collection;
+//import java.util.Collection;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class ejercicio6 {
+    /*
+     * Ejercicio 6:
+     * Implementar una lista doblemente enlazada que tenga los elementos del 1 al 10, usando la clase nodo en 
+     * java y modificar los métodos vistos en los ejercicios propuestos (insert, printList, deleteByKey, 
+     * deleteAtPosition, size, removeFirst, removela
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         LinkedListDouble<String> lista = new LinkedListDouble<>();

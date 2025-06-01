@@ -1,6 +1,6 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio7;
 import java.util.Collection;
-import java.util.Iterator;
+//import java.util.Iterator;
 
 public class LinkedListCircular<E> {
     private Node<E> head; // Apunta al primer nodo de la lista

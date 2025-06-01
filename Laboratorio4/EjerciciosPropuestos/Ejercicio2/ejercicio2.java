@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class ejercicio2 {
+    /**
+     * Ejercicio 2:
+     * Implementar una lista circular que tenga los elementos del 1 al 12 utilizando la clase nodo en.
+     */
     public static void main(String[] args) {
         LinkedListCircular<Integer> listEnteros = new LinkedListCircular<>();
         LinkedListCircular<String> listCadenas = new LinkedListCircular<>();

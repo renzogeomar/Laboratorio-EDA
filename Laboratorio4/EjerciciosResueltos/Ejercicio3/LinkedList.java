@@ -1,6 +1,6 @@
 package Laboratorio4.EjerciciosResueltos.Ejercicio3;
 
-import java.io.*;
+//import java.io.*;
 
 // Un programa java para implementar
 // Una simple lista enlazada

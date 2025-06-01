@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class ejercicio3 {
+    /*
+     * Ejercicio 3:
+     * Implementar una lista doblemente enlazada que tenga los elementos del 1 al 10, usando la 
+     * clase libreria java.util.
+     */
     public static void main(String[] args) {
         LinkedList<Integer> listEnteros = new LinkedList<>();
         LinkedList<String> listCadenas = new LinkedList<>();

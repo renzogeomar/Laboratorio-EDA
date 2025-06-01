@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class ejercicio4 {
+    /*
+     * Ejercicio 4:
+     * Implementar una lista circular que tenga los elementos del 1 al 12, usando la 
+     * libreria java.util.
+     */
     public static void main(String[] args) {
         LinkedList<Integer> listEnteros = new LinkedList<>();
         LinkedList<String> listCadenas = new LinkedList<>();

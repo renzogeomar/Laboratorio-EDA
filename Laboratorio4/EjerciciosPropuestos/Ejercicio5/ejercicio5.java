@@ -1,13 +1,18 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio5;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 public class ejercicio5 {
+    /*
+     * Ejercicio 5: 
+     * Implementar una lista enlazada simple que tenga los elementos del 1 al 10, usando la clase nodo en java y 
+     * los métodos vistos en los ejercicios propuestos (insert, printList, deleteByKey, deleteAtPosition, size, 
+     * removeFirst, removelast, addFirst y addLast) y probar una clase Principal con un menú de opciones para
+     * probar los métodos.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         LinkedList<String> list = new LinkedList<>();

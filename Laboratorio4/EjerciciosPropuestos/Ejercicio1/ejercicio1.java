@@ -3,7 +3,11 @@ package Laboratorio4.EjerciciosPropuestos.Ejercicio1;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-
+/*
+ * Ejercicio 1:
+ * Implementar una lista doblemente enlazada que tenga los elementos del 1 al 10, usando la 
+ * clase nodo en java.
+ */
 public class ejercicio1 {
     public static void main(String[] args) {
         LinkedListDouble<Integer> listEnteros = new LinkedListDouble<>();

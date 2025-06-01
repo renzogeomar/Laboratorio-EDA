@@ -1,12 +1,17 @@
 package Laboratorio4.EjerciciosPropuestos.Ejercicio7;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 public class ejercicio7 {
+    /*
+     * Ejercicio 7:
+     * Implementar una lista circular que tenga los elementos del 1 al 12 utilizando la clase nodo en java y 
+     * modificar los métodos vistos en los ejercicios propuestos (insert, printList, deleteByKey, deleteAtPosition, 
+     * size, removeFirst, removelast, addFirst y addLast) y probar una clase Principal con un menú de opciones 
+     * para probar los métodos.
+
+     */
     public static void main(String[] args) {
         LinkedListCircular<Integer> list = new LinkedListCircular<>();
         Scanner sc = new Scanner(System.in);
