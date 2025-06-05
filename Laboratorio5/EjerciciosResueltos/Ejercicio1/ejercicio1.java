@@ -12,7 +12,7 @@ public class ejercicio1 {
         stack.push(7);
         stack.push(8);
 
-        System.out.println("Cima de la pila: " + stack.top()); // Debería imprimir 8
+        System.out.println("Cima de la pila: " + stack.top()); 
         stack.pop(); // Elimina el elemento en la cima (8)
         System.out.println("Cima de la pila: " + stack.top()); 
         stack.pop(); // Elimina el elemento en la cima (7)
