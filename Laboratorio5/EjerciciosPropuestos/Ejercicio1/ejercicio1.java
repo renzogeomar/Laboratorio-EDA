@@ -11,10 +11,12 @@ public class ejercicio1 {
         stack.push(6);
         stack.push(7);
         stack.push(8);
+        stack.push(9);
+        stack.push(10);
         stack.printStack();
         System.out.println("El tope es: "+ stack.top());
         System.out.println("Retirando el tope actual...");
-        stack.pop(); // Elimina el elemento en la cima (8)
+        stack.pop(); // Elimina el elemento en la cima (10)
         System.out.println("El nuevo tope es: " + stack.top());
         stack.printStack();
         System.out.println("Buscando el elemento 5 en la pila...");
