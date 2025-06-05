@@ -12,4 +12,30 @@ public class StackList<E> {
         newNode.setNext(top); // El siguiente del nuevo nodo es el actual top
         top = newNode; // Actualiza el top a ser el nuevo nodo
     }
+
+    public E top(){
+        if (top == null){
+            throw new IllegalStateException("Stack is empty");
+        } 
+        else {
+            return top.getData(); // Retorna el dato del nodo en la cima
+        }
+    }
+
+    public void pop(){
+        if (top == null){
+            throw new IllegalStateException("Stack is empty");
+        } 
+        else {
+            top = top.getNext(); // Actualiza el top al siguiente nodo
+        }
+    }
+
+    public void destroyStack(){
+        top = null; // Elimina la pila al establecer el top a null
+    }
+
+    public boolean isEmpty(){
+        return top == null; // Retorna true si la pila esta vacia
+    }
 }
