@@ -38,4 +38,14 @@ public class StackList<E> {
     public boolean isEmpty(){
         return top == null; // Retorna true si la pila esta vacia
     }
+
+    public E search(Object O){
+        Node<E> current = top; // Comienza desde la cima de la pila
+        while (current != null) { // Mientras haya nodos en la pila
+            if (current.getData().equals(O)){ // Compara el dato del nodo actual con el objeto O
+                return current.getData(); // Retorna el dato si se encuentra
+            }
+        }
+        return null; // Retorna null si no se encuentra el objeto O en la pila
+    }
 }
