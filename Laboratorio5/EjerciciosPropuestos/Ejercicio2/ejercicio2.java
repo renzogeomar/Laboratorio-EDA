@@ -11,6 +11,7 @@ public class ejercicio2 {
         queueList.enqueue(6);
         queueList.enqueue(7);
         queueList.enqueue(8);
+        //queueList.destroyQueue();
         System.out.println("frente: "+ queueList.front());
         System.out.println("final: "+ queueList.back());
         System.out.println("Tope de la cola: " + queueList.front());
@@ -35,7 +36,5 @@ public class ejercicio2 {
         else {
             System.out.println("La cola no está vacía.");
         }
-
-
     }
 }
