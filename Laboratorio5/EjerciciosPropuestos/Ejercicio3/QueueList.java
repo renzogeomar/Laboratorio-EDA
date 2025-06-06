@@ -87,6 +87,28 @@ public class QueueList<E> {
         }
         return modified;
     }
-    
-    
+    public void clear() {
+        destroyQueue();
+    }
+    public E element() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+        return front.getData();
+    }
+    public void printQueue(){
+        Node<E> current = front; // comienza desde el frente de la cola
+        if (current == null){
+            System.out.println("La cola está vacía."); // Si la cola está vacía, imprime un mensaje
+            return; // Sale del método
+        }
+        while (current != null){ // Mientras haya nodos en la cola
+            System.out.print(current.getData() + " "); // Imprime el dato del nodo actual
+            if (current.getNext() != null) {
+                System.out.print(" -> ");
+            }
+            current = current.getNext(); // Avanza al siguiente nodo
+        }
+        System.out.println(" <- Final");
+    }
 }
