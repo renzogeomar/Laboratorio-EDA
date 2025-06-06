@@ -1,5 +1,7 @@
 package Laboratorio5.EjerciciosPropuestos.Ejercicio4;
 
+import java.util.Collection;
+
 public class QueueList<E> {
     private Node<E> front; //Frente de la cola
     private Node<E> rear; //Final de la cola
@@ -59,6 +61,55 @@ public class QueueList<E> {
         else{
             return rear.getData(); // Retorna el dato del nodo final
         }
+    }
+
+    public boolean add(E e) {
+        if (e == null) {
+            throw new NullPointerException("Element cannot be null");
+        }
+        try {
+            enqueue(e);
+            return true;
+        } 
+        catch (IllegalStateException ex) {
+            throw new IllegalStateException("Queue is full", ex);
+        }
+    }
+    public boolean addAll(Collection<? extends E> c) {
+        if (c == null) {
+            throw new NullPointerException("Collection cannot be null");
+        }
+        boolean modified = false;
+        for (E element : c) {
+            if (add(element)) {
+                modified = true;
+            }
+        }
+        return modified;
+    }
+    public void clear() {
+        destroyQueue();
+    }
+    public E element() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+        return front.getData();
+    }
+    public void printQueue(){
+        Node<E> current = front; // comienza desde el frente de la cola
+        if (current == null){
+            System.out.println("La cola está vacía."); // Si la cola está vacía, imprime un mensaje
+            return; // Sale del método
+        }
+        while (current != null){ // Mientras haya nodos en la cola
+            System.out.print(current.getData() + " "); // Imprime el dato del nodo actual
+            if (current.getNext() != null) {
+                System.out.print(" -> ");
+            }
+            current = current.getNext(); // Avanza al siguiente nodo
+        }
+        System.out.println(" <- Final");
     }
     
 
