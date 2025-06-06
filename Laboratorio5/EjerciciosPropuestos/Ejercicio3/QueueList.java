@@ -1,5 +1,7 @@
 package Laboratorio5.EjerciciosPropuestos.Ejercicio3;
 
+import java.util.Collection;
+
 public class QueueList<E> {
     private Node<E> front; //Frente de la cola
     private Node<E> rear; //Final de la cola
@@ -60,6 +62,31 @@ public class QueueList<E> {
             return rear.getData(); // Retorna el dato del nodo final
         }
     }
-    
 
+    public boolean add(E e) {
+        if (e == null) {
+            throw new NullPointerException("Element cannot be null");
+        }
+        try {
+            enqueue(e);
+            return true;
+        } 
+        catch (IllegalStateException ex) {
+            throw new IllegalStateException("Queue is full", ex);
+        }
+    }
+    public boolean addAll(Collection<? extends E> c) {
+        if (c == null) {
+            throw new NullPointerException("Collection cannot be null");
+        }
+        boolean modified = false;
+        for (E element : c) {
+            if (add(element)) {
+                modified = true;
+            }
+        }
+        return modified;
+    }
+    
+    
 }
