@@ -74,6 +74,18 @@ public class BST<T extends Comparable<T>>{
             actual.setRight(removeRec(actual.getRight(), minNode.getData())); // Elimina el mínimo encontrado del subárbol derecho
         }
     }
+    public Node<T> findMin(Node<T> node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft(); // Recorre hacia la izquierda hasta encontrar el nodo mínimo
+        }
+        return node; // Devuelve el nodo mínimo encontrado
+    }
+    public Node<T> findMax(Node<T> node){
+        while (node.getRight() != null) {
+            node = node.getRight(); // Recorre hacia la derecha hasta encontrar el nodo máximo
+        }
+        return node; // Devuelve el nodo máximo encontrado
+    }
 
 
 
