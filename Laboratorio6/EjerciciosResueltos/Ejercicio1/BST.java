@@ -104,6 +104,48 @@ public class BST<T extends Comparable<T>>{
             return true; // Si el dato es igual al del nodo actual, se ha encontrado
         }
     }
+    public Node<T> findPredecessor(T data) {
+        Node<T> actual = root;
+        Node<T> predecessor = null;
+
+        while (actual != null) {
+            if (data.compareTo(actual.getData()) < 0) {
+                actual = actual.getLeft(); // Si el dato es menor, va al subárbol izquierdo
+            } 
+            else if (data.compareTo(actual.getData()) > 0) {
+                predecessor = actual; // Actualiza el predecesor
+                actual = actual.getRight(); // Va al subárbol derecho
+            } 
+            else {
+                if (actual.getLeft() != null) {
+                    predecessor = findMax(actual.getLeft()); // Encuentra el máximo en el subárbol izquierdo
+                }
+                break; // Sale del bucle si encuentra el nodo
+            }
+        }
+        return predecessor; // Devuelve el predecesor encontrado
+    }
+    public Node<T> findSuccessor(T data) {
+        Node<T> actual = root;
+        Node<T> successor = null;
+
+        while (actual != null) {
+            if (data.compareTo(actual.getData()) < 0) {
+                successor = actual; // Actualiza el sucesor
+                actual = actual.getLeft(); // Va al subárbol izquierdo
+            } 
+            else if (data.compareTo(actual.getData()) > 0) {
+                actual = actual.getRight(); // Si el dato es mayor, va al subárbol derecho
+            } 
+            else {
+                if (actual.getRight() != null) {
+                    successor = findMin(actual.getRight()); // Encuentra el mínimo en el subárbol derecho
+                }
+                break; // Sale del bucle si encuentra el nodo
+            }
+        }
+        return successor; // Devuelve el sucesor encontrado
+    }
 
 
 
