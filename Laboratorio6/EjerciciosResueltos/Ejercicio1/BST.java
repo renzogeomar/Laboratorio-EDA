@@ -156,6 +156,16 @@ public class BST<T extends Comparable<T>>{
             inOrderRec(node.getRight()); // Recorre el subárbol derecho
         }
     }
+    public void preOrder() {
+        preOrderRec(root); // Llama al método recursivo para imprimir en preorden
+    }
+    public void preOrderRec(Node<T> node) {
+        if (node != null) {
+            System.out.print(node.getData() + " "); // Imprime el dato del nodo actual
+            preOrderRec(node.getLeft()); // Recorre el subárbol izquierdo
+            preOrderRec(node.getRight()); // Recorre el subárbol derecho
+        }
+    }
 
 
 
