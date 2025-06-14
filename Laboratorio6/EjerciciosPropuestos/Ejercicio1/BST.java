@@ -176,6 +176,27 @@ public class BST<T extends Comparable<T>>{
             System.out.print(node.getData() + " "); // Imprime el dato del nodo actual
         }
     }
+    public void printPretty() {
+        printPrettyRec(root, "", true);
+    }
+
+    public void printPrettyRec(Node<T> node, String prefix, boolean isTail) {
+        if (node == null) return;
+
+        // Imprime el hijo derecho primero (para que aparezca arriba)
+        if (node.getRight() != null) {
+            printPrettyRec(node.getRight(), prefix + (isTail ? "│   " : "    "), false);
+        }
+
+        // Imprime el nodo actual
+        System.out.println(prefix + (isTail ? "└── " : "┌── ") + node.getData());
+
+        // Imprime el hijo izquierdo
+        if (node.getLeft() != null) {
+            printPrettyRec(node.getLeft(), prefix + (isTail ? "    " : "│   "), true);
+        }
+    }
+
 
 
 
