@@ -73,6 +73,7 @@ public class BST<T extends Comparable<T>>{
             actual.setData(minNode.getData()); // Reemplaza el dato del nodo actual con el mínimo encontrado
             actual.setRight(removeRec(actual.getRight(), minNode.getData())); // Elimina el mínimo encontrado del subárbol derecho
         }
+        return actual; // Devuelve el nodo actual actualizado
     }
     public Node<T> findMin(Node<T> node) {
         while (node.getLeft() != null) {
@@ -85,6 +86,23 @@ public class BST<T extends Comparable<T>>{
             node = node.getRight(); // Recorre hacia la derecha hasta encontrar el nodo máximo
         }
         return node; // Devuelve el nodo máximo encontrado
+    }
+    public boolean search(T data) {
+        return searchRec(root, data); // Llama al método recursivo para buscar el dato
+    }
+    public boolean searchRec(Node<T> actual, T data) {
+        if (actual == null) {
+            return false; // Si el nodo actual es nulo, el dato no se encuentra
+        }
+        if (data.compareTo(actual.getData()) < 0) {
+            return searchRec(actual.getLeft(), data); // Busca en el subárbol izquierdo
+        } 
+        else if (data.compareTo(actual.getData()) > 0) {
+            return searchRec(actual.getRight(), data); // Busca en el subárbol derecho
+        } 
+        else {
+            return true; // Si el dato es igual al del nodo actual, se ha encontrado
+        }
     }
 
 
