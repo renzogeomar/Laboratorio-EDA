@@ -42,6 +42,38 @@ public class BST<T extends Comparable<T>>{
             }
         }
     }
+    public void remove(T data){
+        root = removeRec(root, data); // Llama al método recursivo para eliminar el nodo
+    }
+    public Node<T> removeRec(Node<T> actual, T data){
+        if (actual == null){
+            return null; // Si el nodo actual es nulo, no hay nada que eliminar
+        }
+        if (data.compareTo(actual.getData()) < 0){
+            // Si el dato a eliminar es menor, busca en el subárbol izquierdo
+            actual.setLeft(removeRec(actual.getLeft(), data)); // Llama recursivamente al subárbol izquierdo
+        }
+        else if (data.compareTo(actual.getData()) > 0){
+            // Si el dato a eliminar es mayor, busca en el subárbol derecho
+            actual.setRight(removeRec(actual.getRight(), data)); // Llama recursivamente al subárbol derecho
+        } 
+        else {
+            // Si el dato es igual al del nodo actual, se elimina este nodo
+            if (actual.getLeft() == null && actual.getRight() == null) {
+                return null; // Si no tiene hijos, simplemente devuelve nulo
+            } 
+            else if (actual.getRight() == null) {
+                return actual.getLeft(); // Si no tiene hijo derecho, devuelve el hijo izquierdo
+            }
+            else if (actual.getLeft() == null) {
+                return actual.getRight(); // Si no tiene hijo izquierdo, devuelve el hijo derecho
+            }
+            // Si tiene ambos hijos, encuentra el mínimo en el subárbol derecho
+            Node<T> minNode = findMin(actual.getRight());
+            actual.setData(minNode.getData()); // Reemplaza el dato del nodo actual con el mínimo encontrado
+            actual.setRight(removeRec(actual.getRight(), minNode.getData())); // Elimina el mínimo encontrado del subárbol derecho
+        }
+    }
 
 
 
