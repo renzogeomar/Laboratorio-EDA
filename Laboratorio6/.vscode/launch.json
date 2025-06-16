@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "TestBST3",
+      "request": "launch",
+      "mainClass": "Laboratorio6.EjerciciosPropuestos.Ejercicio3.TestBST3",
+      "projectName": "Laboratorio6"
+    }
+  ]
+}
