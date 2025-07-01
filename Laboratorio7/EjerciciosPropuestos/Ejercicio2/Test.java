@@ -1,4 +1,4 @@
-package Laboratorio7.EjerciciosPropuestos.Ejercicio1;
+package Laboratorio7.EjerciciosPropuestos.Ejercicio2;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package Laboratorio7.EjerciciosPropuestos.Ejercicio1;
+package Laboratorio7.EjerciciosPropuestos.Ejercicio2;
 public class Node<T extends Comparable<T>> {
     private T data;
     private Node<T> left;
