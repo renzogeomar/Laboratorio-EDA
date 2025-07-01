@@ -247,7 +247,18 @@ public class AVL<T extends Comparable<T>>{
         }
         return node;
     }
-    
+    private Node<T> swingRight(Node<T> node) {
+        if (getBalance(node) > 1) {
+            if (getBalance(node.getLeft()) < 0) {
+                // Rotación doble izquierda-derecha
+                node.setLeft(simpleLeftRotation(node.getLeft()));
+            }
+            // Rotación simple derecha
+            return simpleRightRotation(node);
+        }
+        return node;
+}
+
 
 
 
