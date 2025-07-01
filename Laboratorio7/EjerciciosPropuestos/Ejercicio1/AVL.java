@@ -13,48 +13,54 @@ public class AVL<T extends Comparable<T>>{
         return root == null; // Verifica si el árbol está vacío
     }
     public void insert(T data){
-        Node<T> newNode = new Node<>(data);
-        root = insertRec(root, newNode); // Inserta recursivamente
+        root = insertRec(root, data); // Inserta recursivamente
     }
-    public Node<T> insertRec(Node<T> actual, Node<T> newNode) {
+    public Node<T> insertRec(Node<T> actual, T data) {
         if (actual == null) {
-        return newNode;
+            return new Node<>(data); // Si el nodo actual es nulo, crea un nuevo nodo
         }
 
-        if (newNode.getData().compareTo(actual.getData()) < 0) {
-            actual.setLeft(insertRec(actual.getLeft(), newNode)); // Si el nuevo dato es menor, va a la izquierda
+        // Inserción estándar de BST
+        if (data.compareTo(actual.getData()) < 0) {
+            actual.setLeft(insertRec(actual.getLeft(), data)); // Inserta en el subárbol izquierdo
+        } else if (data.compareTo(actual.getData()) > 0) {
+            actual.setRight(insertRec(actual.getRight(), data)); // Inserta en el subárbol derecho
         } else {
-            actual.setRight(insertRec(actual.getRight(), newNode)); // Si el nuevo dato es mayor o igual, va a la derecha
+            // Duplicados no permitidos en AVL
+            return actual;
         }
 
-        // Actualiza la altura del nodo actual
+        // Actualizar la altura del nodo actual
         actual.setHeight(1 + Math.max(getHeight(actual.getLeft()), getHeight(actual.getRight())));
 
-        // Obtiene el balance del nodo actual
+        // Obtener el balance del nodo actual
         int balance = getBalance(actual);
 
-        // Rotaciones según el tipo de desequilibrio
-        // Caso Izquierda-Izquierda (LL)
-        if (balance > 1 && newNode.getData().compareTo(actual.getLeft().getData()) < 0)
+        // Casos de desbalance:
+
+        // Caso Izquierda-Izquierda
+        if (balance > 1 && data.compareTo(actual.getLeft().getData()) < 0) {
             return simpleRightRotation(actual); // Rotación simple derecha
+        }
 
-        // Caso Derecha-Derecha (RR)
-        if (balance < -1 && newNode.getData().compareTo(actual.getRight().getData()) > 0)
+        // Caso Derecha-Derecha
+        if (balance < -1 && data.compareTo(actual.getRight().getData()) > 0) {
             return simpleLeftRotation(actual); // Rotación simple izquierda
-
-        // Caso Izquierda-Derecha (LR)
-        if (balance > 1 && newNode.getData().compareTo(actual.getLeft().getData()) > 0) {
-            actual.setLeft(simpleLeftRotation(actual.getLeft())); // Rotación simple izquierda en el subárbol izquierdo
-            return simpleRightRotation(actual); // Rotación simple derecha en el nodo actual
         }
 
-        // Caso Derecha-Izquierda (RL)
-        if (balance < -1 && newNode.getData().compareTo(actual.getRight().getData()) < 0) {
-            actual.setRight(simpleRightRotation(actual.getRight())); // Rotación simple derecha en el subárbol derecho
-            return simpleLeftRotation(actual); // Rotación simple izquierda en el nodo actual
+        // Caso Izquierda-Derecha
+        if (balance > 1 && data.compareTo(actual.getLeft().getData()) > 0) {
+            actual.setLeft(simpleLeftRotation(actual.getLeft())); 
+            return simpleRightRotation(actual); // Rotación doble derecha-izquierda
         }
 
-        return actual; 
+        // Caso Derecha-Izquierda
+        if (balance < -1 && data.compareTo(actual.getRight().getData()) < 0) {
+            actual.setRight(simpleRightRotation(actual.getRight()));
+            return simpleLeftRotation(actual); // Rotación doble izquierda-derecha
+        }
+
+        return actual; // Nodo sin cambios
     }
     public void remove(T data){
         root = removeRec(root, data); // Llama al método recursivo para eliminar el nodo

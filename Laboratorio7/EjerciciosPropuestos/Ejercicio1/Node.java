@@ -9,6 +9,7 @@ public class Node<T extends Comparable<T>> {
         this.data = data;
         this.left = null;
         this.right = null;
+        this.height = 1;
     }
 
     public T getData() {
