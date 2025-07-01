@@ -230,4 +230,12 @@ public class AVL<T extends Comparable<T>>{
 
         return y; // Nueva raíz
     }
+    private int getBalance(Node<T> node) {
+        if (node == null) {
+            return 0; // Si el nodo es nulo, el balance es 0
+        }
+        return getHeight(node.getLeft()) - getHeight(node.getRight()); // Calcula el balance
+    }
+
+
 }
