@@ -60,34 +60,55 @@ public class AVL<T extends Comparable<T>>{
         root = removeRec(root, data); // Llama al método recursivo para eliminar el nodo
     }
     public Node<T> removeRec(Node<T> actual, T data){
-        if (actual == null){
-            return null; // Si el nodo actual es nulo, no hay nada que eliminar
-        }
-        if (data.compareTo(actual.getData()) < 0){
-            // Si el dato a eliminar es menor, busca en el subárbol izquierdo
-            actual.setLeft(removeRec(actual.getLeft(), data)); // Llama recursivamente al subárbol izquierdo
-        }
-        else if (data.compareTo(actual.getData()) > 0){
-            // Si el dato a eliminar es mayor, busca en el subárbol derecho
-            actual.setRight(removeRec(actual.getRight(), data)); // Llama recursivamente al subárbol derecho
-        } 
-        else {
-            // Si el dato es igual al del nodo actual, se elimina este nodo
-            if (actual.getLeft() == null && actual.getRight() == null) {
-                return null; // Si no tiene hijos, simplemente devuelve nulo
-            } 
-            else if (actual.getRight() == null) {
-                return actual.getLeft(); // Si no tiene hijo derecho, devuelve el hijo izquierdo
+        if (actual == null) return null;
+
+        if (data.compareTo(actual.getData()) < 0) {
+            actual.setLeft(removeRec(actual.getLeft(), data));
+        } else if (data.compareTo(actual.getData()) > 0) {
+            actual.setRight(removeRec(actual.getRight(), data));
+        } else {
+            // Nodo encontrado
+            if (actual.getLeft() == null || actual.getRight() == null) {
+                Node<T> temp = (actual.getLeft() != null) ? actual.getLeft() : actual.getRight();
+                if (temp == null) return null; // Sin hijos
+                return temp; // Un hijo
+            } else {
+                // Dos hijos
+                Node<T> minNode = findMin(actual.getRight());
+                actual.setData(minNode.getData());
+                actual.setRight(removeRec(actual.getRight(), minNode.getData()));
             }
-            else if (actual.getLeft() == null) {
-                return actual.getRight(); // Si no tiene hijo izquierdo, devuelve el hijo derecho
-            }
-            // Si tiene ambos hijos, encuentra el mínimo en el subárbol derecho
-            Node<T> minNode = findMin(actual.getRight());
-            actual.setData(minNode.getData()); // Reemplaza el dato del nodo actual con el mínimo encontrado
-            actual.setRight(removeRec(actual.getRight(), minNode.getData())); // Elimina el mínimo encontrado del subárbol derecho
         }
-        return actual; // Devuelve el nodo actual actualizado
+
+        // Actualiza la altura
+        actual.setHeight(1 + Math.max(getHeight(actual.getLeft()), getHeight(actual.getRight())));
+
+        // Obtiene el balance
+        int balance = getBalance(actual);
+
+        // Rotaciones si está desequilibrado
+
+        // Caso Izquierda-Izquierda
+        if (balance > 1 && getBalance(actual.getLeft()) >= 0)
+            return simpleRightRotation(actual);
+
+        // Caso Izquierda-Derecha
+        if (balance > 1 && getBalance(actual.getLeft()) < 0) {
+            actual.setLeft(simpleLeftRotation(actual.getLeft()));
+            return simpleRightRotation(actual);
+        }
+
+        // Caso Derecha-Derecha
+        if (balance < -1 && getBalance(actual.getRight()) <= 0)
+            return simpleLeftRotation(actual);
+
+        // Caso Derecha-Izquierda
+        if (balance < -1 && getBalance(actual.getRight()) > 0) {
+            actual.setRight(simpleRightRotation(actual.getRight()));
+            return simpleLeftRotation(actual);
+        }
+
+        return actual;
     }
     public Node<T> findMin(Node<T> node) {
         while (node.getLeft() != null) {
