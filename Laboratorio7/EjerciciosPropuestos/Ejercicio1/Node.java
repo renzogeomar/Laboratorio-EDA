@@ -1,4 +1,4 @@
-package Laboratorio6.EjerciciosResueltos.Ejercicio1;
+package Laboratorio6.EjerciciosPropuestos.Ejercicio2;
 public class Node<T extends Comparable<T>> {
     private T data;
     private Node<T> left;
@@ -9,6 +9,7 @@ public class Node<T extends Comparable<T>> {
         this.left = null;
         this.right = null;
     }
+
     public T getData() {
         return data;
     }
