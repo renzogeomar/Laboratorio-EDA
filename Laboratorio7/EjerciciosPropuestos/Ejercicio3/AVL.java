@@ -1,4 +1,4 @@
-package Laboratorio7.EjerciciosPropuestos.Ejercicio2;
+package Laboratorio7.EjerciciosPropuestos.Ejercicio3;
 
 public class AVL<T extends Comparable<T>>{
     private Node<T> root;
