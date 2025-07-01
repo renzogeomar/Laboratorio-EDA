@@ -14,33 +14,47 @@ public class AVL<T extends Comparable<T>>{
     }
     public void insert(T data){
         Node<T> newNode = new Node<>(data);
-        if (root == null) {
-            root = newNode; // Si el árbol está vacío, el nuevo nodo se convierte en la raíz
-        } 
-        else {
-            insertRec(root, newNode); // Inserta recursivamente
-        }
+        root = insertRec(root, newNode); // Inserta recursivamente
     }
-    public void insertRec(Node<T> actual, Node<T> newNode) {
-        if (newNode.getData().compareTo(actual.getData()) < 0) { // devuelve un valor negativo si newNode es menor que actual, 0 si son iguales 
-            //y un valor positivo si newNode es mayor que actual y positivo si newNode es mayor que actual
-            // Si el nuevo dato es menor, va a la izquierda
-            if (actual.getLeft() == null) { // Verifica si el hijo izquierdo es nulo
-                actual.setLeft(newNode);
-            } 
-            else {
-                insertRec(actual.getLeft(), newNode);
-            }
-        } 
-        else {
-            // Si el nuevo dato es mayor o igual, va a la derecha
-            if (actual.getRight() == null) { // Verifica si el hijo derecho es nulo
-                actual.setRight(newNode);
-            } 
-            else {
-                insertRec(actual.getRight(), newNode);
-            }
+    public Node<T> insertRec(Node<T> actual, Node<T> newNode) {
+        if (actual == null) {
+        return newNode;
         }
+
+        if (newNode.getData().compareTo(actual.getData()) < 0) {
+            actual.setLeft(insertRec(actual.getLeft(), newNode)); // Si el nuevo dato es menor, va a la izquierda
+        } else {
+            actual.setRight(insertRec(actual.getRight(), newNode)); // Si el nuevo dato es mayor o igual, va a la derecha
+        }
+
+        // Actualiza la altura del nodo actual
+        actual.setHeight(1 + Math.max(getHeight(actual.getLeft()), getHeight(actual.getRight())));
+
+        // Obtiene el balance del nodo actual
+        int balance = getBalance(actual);
+
+        // Rotaciones según el tipo de desequilibrio
+        // Caso Izquierda-Izquierda (LL)
+        if (balance > 1 && newNode.getData().compareTo(actual.getLeft().getData()) < 0)
+            return simpleRightRotation(actual); // Rotación simple derecha
+
+        // Caso Derecha-Derecha (RR)
+        if (balance < -1 && newNode.getData().compareTo(actual.getRight().getData()) > 0)
+            return simpleLeftRotation(actual); // Rotación simple izquierda
+
+        // Caso Izquierda-Derecha (LR)
+        if (balance > 1 && newNode.getData().compareTo(actual.getLeft().getData()) > 0) {
+            actual.setLeft(simpleLeftRotation(actual.getLeft())); // Rotación simple izquierda en el subárbol izquierdo
+            return simpleRightRotation(actual); // Rotación simple derecha en el nodo actual
+        }
+
+        // Caso Derecha-Izquierda (RL)
+        if (balance < -1 && newNode.getData().compareTo(actual.getRight().getData()) < 0) {
+            actual.setRight(simpleRightRotation(actual.getRight())); // Rotación simple derecha en el subárbol derecho
+            return simpleLeftRotation(actual); // Rotación simple izquierda en el nodo actual
+        }
+
+        return actual; 
     }
     public void remove(T data){
         root = removeRec(root, data); // Llama al método recursivo para eliminar el nodo
