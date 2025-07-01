@@ -236,6 +236,19 @@ public class AVL<T extends Comparable<T>>{
         }
         return getHeight(node.getLeft()) - getHeight(node.getRight()); // Calcula el balance
     }
+    private Node<T> swingLeft(Node<T> node) {
+        if (getBalance(node) < -1) {
+            if (getBalance(node.getRight()) > 0) {
+                // Rotación doble derecha-izquierda
+                node.setRight(simpleRightRotation(node.getRight()));
+            }
+            // Rotación simple izquierda
+            return simpleLeftRotation(node);
+        }
+        return node;
+    }
+    
+
 
 
 }
