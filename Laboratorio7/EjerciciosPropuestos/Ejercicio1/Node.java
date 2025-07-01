@@ -1,8 +1,9 @@
-package Laboratorio6.EjerciciosPropuestos.Ejercicio2;
+package Laboratorio7.EjerciciosPropuestos.Ejercicio1;
 public class Node<T extends Comparable<T>> {
     private T data;
     private Node<T> left;
     private Node<T> right;
+    private int height;
 
     public Node(T data) {
         this.data = data;
@@ -32,5 +33,11 @@ public class Node<T extends Comparable<T>> {
 
     public void setRight(Node<T> right) {
         this.right = right;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
