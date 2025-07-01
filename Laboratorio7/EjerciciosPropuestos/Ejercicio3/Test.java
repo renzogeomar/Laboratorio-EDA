@@ -13,8 +13,10 @@ public class Test{
         for (int dato : datos) {
             arbol.insert(dato);
         }
+        arbol.exportToDot("arbol.dot");
+        System.out.println("Archivo DOT generado.");
 
-        do {
+        /*do {
             System.out.println("\n======= MENÚ AVL =======");
             System.out.println("1. Insertar");
             System.out.println("2. Eliminar");
@@ -77,5 +79,6 @@ public class Test{
         } while (opcion != 0);
 
         scanner.close();
+        */
     }
 }

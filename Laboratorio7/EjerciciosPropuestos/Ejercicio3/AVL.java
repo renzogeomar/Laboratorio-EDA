@@ -1,4 +1,6 @@
 package Laboratorio7.EjerciciosPropuestos.Ejercicio3;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class AVL<T extends Comparable<T>>{
     private Node<T> root;
@@ -282,28 +284,52 @@ public class AVL<T extends Comparable<T>>{
         }
         return getHeight(node.getLeft()) - getHeight(node.getRight()); // Calcula el balance
     }
-    private Node<T> swingLeft(Node<T> node) {
-        if (getBalance(node) < -1) {
-            if (getBalance(node.getRight()) > 0) {
-                // Rotación doble derecha-izquierda
-                node.setRight(simpleRightRotation(node.getRight()));
-            }
-            // Rotación simple izquierda
-            return simpleLeftRotation(node);
+    public void exportToDot(String filename) { // Método para exportar el árbol AVL a un archivo DOT
+        try (PrintWriter writer = new PrintWriter(filename)) { // Crea un PrintWriter para escribir en el archivo
+            writer.println("digraph AVL {"); // Inicia el archivo DOT
+            writer.println("    node [shape=circle];"); // Define la forma de los nodos como círculos
+            writeDotRec(root, writer); // Llama al método recursivo para escribir el árbol en formato DOT
+            writer.println("}"); // Cierra el archivo DOT
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
         }
-        return node;
     }
-    private Node<T> swingRight(Node<T> node) {
-        if (getBalance(node) > 1) {
-            if (getBalance(node.getLeft()) < 0) {
-                // Rotación doble izquierda-derecha
-                node.setLeft(simpleLeftRotation(node.getLeft()));
-            }
-            // Rotación simple derecha
-            return simpleRightRotation(node);
+    /* En caso que se quiera mostrar los nodos vacios
+    private void writeDotRec(Node<T> node, PrintWriter writer) {
+        if (node == null) return;
+
+        if (node.getLeft() != null) {
+            writer.printf("    \"%s\" -> \"%s\";%n", node.getData(), node.getLeft().getData());
+            writeDotRec(node.getLeft(), writer);
+        } else {
+            writer.printf("    \"%s_lnull\" [shape=point];%n", node.getData());
+            writer.printf("    \"%s\" -> \"%s_lnull\";%n", node.getData(), node.getData());
         }
-        return node;
-}
+
+        if (node.getRight() != null) {
+            writer.printf("    \"%s\" -> \"%s\";%n", node.getData(), node.getRight().getData());
+            writeDotRec(node.getRight(), writer);
+        } else {
+            writer.printf("    \"%s_rnull\" [shape=point];%n", node.getData());
+            writer.printf("    \"%s\" -> \"%s_rnull\";%n", node.getData(), node.getData());
+        }
+    }
+*/
+// Si no se quiere mostrar los nodos vacíos, se puede usar el siguiente método:
+    private void writeDotRec(Node<T> node, PrintWriter writer) { // Método recursivo para escribir el árbol en formato DOT
+        if (node == null) return;
+
+        if (node.getLeft() != null) { // Verifica si el hijo izquierdo no es nulo
+            writer.printf("    \"%s\" -> \"%s\";%n", node.getData(), node.getLeft().getData()); // Conecta el nodo actual con su hijo izquierdo
+            writeDotRec(node.getLeft(), writer); // Llama recursivamente para el subárbol izquierdo
+        }
+
+        if (node.getRight() != null) { // Verifica si el hijo derecho no es nulo
+            writer.printf("    \"%s\" -> \"%s\";%n", node.getData(), node.getRight().getData()); // Conecta el nodo actual con su hijo derecho
+            writeDotRec(node.getRight(), writer); // Llama recursivamente para el subárbol derecho
+        }
+    }
 
 
 
