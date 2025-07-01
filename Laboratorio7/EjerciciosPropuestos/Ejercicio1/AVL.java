@@ -196,4 +196,38 @@ public class AVL<T extends Comparable<T>>{
             printPrettyRec(node.getLeft(), prefix + (isTail ? "    " : "│   "), true);
         }
     }
+    private int getHeight(Node<T> node) {
+        if (node == null) {
+            return 0;
+        }
+        return node.getHeight();
+    }
+    private Node<T> simpleRightRotation(Node<T> y) {
+        Node<T> x = y.getLeft();
+        Node<T> T2 = x.getRight();
+
+        // Realiza rotación
+        x.setRight(y);
+        y.setLeft(T2);
+
+        // Actualiza alturas
+        y.setHeight(Math.max(getHeight(y.getLeft()), getHeight(y.getRight())) + 1);
+        x.setHeight(Math.max(getHeight(x.getLeft()), getHeight(x.getRight())) + 1);
+
+        return x; // Nueva raíz
+    }
+    private Node<T> simpleLeftRotation(Node<T> x) {
+        Node<T> y = x.getRight();
+        Node<T> T2 = y.getLeft();
+
+        // Realiza rotación
+        y.setLeft(x);
+        x.setRight(T2);
+
+        // Actualiza alturas
+        x.setHeight(Math.max(getHeight(x.getLeft()), getHeight(x.getRight())) + 1);
+        y.setHeight(Math.max(getHeight(y.getLeft()), getHeight(y.getRight())) + 1);
+
+        return y; // Nueva raíz
+    }
 }
