@@ -98,6 +98,90 @@ public class BTree<T extends Comparable<T>>{
         parent.insertChildAt(index + 1, newChild);
         parent.insertKeyAt(index, fullChild.getKeys().get(orden - 1));
     }
+    
+    public void remove(T key) {
+        if (!search(key)) {
+            return; // La clave no existe, no se puede eliminar
+        }
+        remove(root, key);
+        if (root.getNumberOfKeys() == 0) { // Si la raíz queda vacía, hacer que sea una hoja
+            root = root.isLeaf() ? new Node<>(true) : root.getChild(0);
+        }
+    }
+
+    private void remove(Node<T> node, T key) {
+        int i = 0;
+        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) {
+            i++;
+        }
+        if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) { // Clave encontrada
+            if (node.isLeaf()) { // Si es una hoja, eliminar la clave directamente
+                node.removeKeyAt(i);
+            } 
+            else { // Si no es una hoja, manejar la eliminación de manera más compleja
+                removeInternalNode(node, i);
+            }
+        } 
+        else if (!node.isLeaf()) { // Si no es una hoja, buscar en el hijo correspondiente
+            remove(node.getChild(i), key);
+        }
+    }
+
+    private void removeInternalNode(Node<T> node, int index) {
+        Node<T> child = node.getChild(index);
+        if (child.getNumberOfKeys() >= orden) { // Si el hijo tiene suficientes claves, tomar la máxima del hijo
+            T predecessor = getMax(child);
+            node.getKeys().set(index, predecessor); // Reemplazar la clave con el predecesor
+            remove(child, predecessor); // Eliminar el predecesor del hijo
+        } 
+        else {
+            Node<T> sibling = node.getChild(index + 1);
+            if (sibling.getNumberOfKeys() >= orden) { // Si el hermano tiene suficientes claves, tomar la mínima del hermano
+                T successor = getMin(sibling);
+                node.getKeys().set(index, successor); // Reemplazar la clave con el sucesor
+                remove(sibling, successor); // Eliminar el sucesor del hermano
+            } 
+            else { // Si ambos hijos tienen menos de orden - 1 claves, fusionarlos
+                merge(node, index);
+                remove(child, node.getKeys().get(index)); // Eliminar la clave fusionada
+            }
+        }
+    }
+    private T getMax(Node<T> node) {
+        while (!node.isLeaf()) {
+            node = node.getChild(node.getNumberOfKeys() - 1); // Ir al hijo derecho
+        }
+        return node.getKeys().get(node.getNumberOfKeys() - 1); // Retornar la última clave
+    }
+    private T getMin(Node<T> node) {
+        while (!node.isLeaf()) {
+            node = node.getChild(0); // Ir al hijo izquierdo
+        }
+        return node.getKeys().get(0); // Retornar la primera clave
+    }
+    private void merge(Node<T> parent, int index) {
+        Node<T> leftChild = parent.getChild(index);
+        Node<T> rightChild = parent.getChild(index + 1);
+        
+        // Mover la clave del padre al hijo izquierdo
+        leftChild.addKey(parent.getKeys().get(index));
+        
+        // Mover todas las claves del hijo derecho al hijo izquierdo
+        for (T key : rightChild.getKeys()) {
+            leftChild.addKey(key);
+        }
+        
+        // Mover todos los hijos del hijo derecho al hijo izquierdo
+        if (!leftChild.isLeaf()) {
+            for (Node<T> child : rightChild.getChildren()) {
+                leftChild.addChild(child);
+            }
+        }
+        
+        // Eliminar el hijo derecho y la clave del padre
+        parent.removeKeyAt(index);
+        parent.getChildren().remove(index + 1);
+    }
 
 
 
