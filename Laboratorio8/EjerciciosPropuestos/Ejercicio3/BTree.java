@@ -16,5 +16,13 @@ public class BTree<T extends Comparable<T>>{
         root = new Node<>(true);
     }
 
+    public boolean isEmpty() {
+        return root.getNumberOfKeys() == 0;
+    }
+
+    public boolean search(T key){
+        return search(root, key) != null;
+    }
+
 
 }
