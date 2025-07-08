@@ -1,6 +1,7 @@
 package Laboratorio8.EjerciciosPropuestos.Ejercicio3;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Node<T extends Comparable<T>> {
     private ArrayList<T> keys; // Lista de claves
@@ -16,16 +17,16 @@ public class Node<T extends Comparable<T>> {
         return keys;
     }
 
-    public void setKeys(ArrayList<T> keys) {
-        this.keys = keys;
+    public void setKeys(List<T> keys) {
+        this.keys = new ArrayList<>(keys); 
     }
 
     public ArrayList<Node<T>> getChildren() {
         return children;
     }
 
-    public void setChildren(ArrayList<Node<T>> children) {
-        this.children = children;
+    public void setChildren(List<Node<T>> children) {
+        this.children = new ArrayList<>(children); 
     }
 
     public boolean isLeaf() {
