@@ -23,10 +23,10 @@ public class AVL<T extends Comparable<T>>{
         }
 
         // Inserción estándar de BST
-        if (data.compareTo(actual.getData()) < 0) {
+        if (data.compareTo(actual.getData()) < 0) { // Si el dato es menor, va al subárbol izquierdo
             actual.setLeft(insertRec(actual.getLeft(), data)); // Inserta en el subárbol izquierdo
         } 
-        else if (data.compareTo(actual.getData()) > 0) {
+        else if (data.compareTo(actual.getData()) > 0) { // Si el dato es mayor, va al subárbol derecho
             actual.setRight(insertRec(actual.getRight(), data)); // Inserta en el subárbol derecho
         } 
         else {
