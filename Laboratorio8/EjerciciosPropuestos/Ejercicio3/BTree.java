@@ -234,10 +234,45 @@ public class BTree<T extends Comparable<T>>{
         }
         return null; // Clave no encontrada
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        toString(root, sb, 0);
+        return sb.toString();
+    }
+    private void toString(Node<T> node, StringBuilder sb, int level) {
+        if (node == null) return;
+        for (int i = 0; i < level; i++) {
+            sb.append("  "); // Indentación para el nivel
+        }
+        sb.append("Nivel ").append(level).append(": ");
+        for (T key : node.getKeys()) {
+            sb.append(key).append(" ");
+        }
+        sb.append("\n");
+        if (!node.isLeaf()) {
+            for (Node<T> child : node.getChildren()) {
+                toString(child, sb, level + 1); // Llamada recursiva para los hijos
+            }
+        }
+    }
+    public String writeTree() {
+        return writeTree(root);
+    }
+    private String writeTree(Node<T> current) {
+        if (current == null) return "";
 
+        StringBuilder sb = new StringBuilder();
+        sb.append(current.getKeys()).append("\n");
 
+        if (!current.isLeaf()) {
+            for (Node<T> child : current.getChildren()) {
+                sb.append(writeTree(child));
+            }
+        }
 
-
+        return sb.toString();
+    }
 
 
 }
