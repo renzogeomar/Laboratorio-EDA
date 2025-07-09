@@ -1,6 +1,4 @@
 package Laboratorio8.EjerciciosPropuestos.Ejercicio3;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class BTree<T extends Comparable<T>>{
     private Node<T> root;
@@ -182,6 +180,62 @@ public class BTree<T extends Comparable<T>>{
         parent.removeKeyAt(index);
         parent.getChildren().remove(index + 1);
     }
+    public T predecesor(T key) {
+        Node<T> node = root;
+        while (node != null) { // Recorrer el árbol
+            int i = 0;
+            while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) { // Buscar la posición de la clave
+                i++;
+            }
+            if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) { // Clave encontrada
+                if (!node.isLeaf()) { // Si no es una hoja, buscar el hijo izquierdo
+                    return getMax(node.getChild(i)); // Retorna la clave más grande del hijo izquierdo
+                } 
+                else if (i > 0) { // Si es una hoja y hay claves anteriores
+                    return node.getKeys().get(i - 1); // Retorna la clave anterior en el mismo nodo
+                } 
+                else { // Si es una hoja y no hay claves anteriores
+                    return null; // No tiene predecesor
+                }
+            } 
+            else if (node.isLeaf()) { // Si es una hoja y no se encontró la clave
+                return null;
+            } 
+            else { // Si no se encontró la clave, continuar en el hijo correspondiente
+                node = node.getChild(i);
+            }
+        }
+        return null; // Clave no encontrada
+    }
+    public T sucesor(T key) {
+        Node<T> node = root;
+        while (node != null) {
+            int i = 0;
+            while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) {
+                i++;
+            }
+            if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) { // Clave encontrada
+                if (!node.isLeaf()) { // Si no es una hoja, buscar el hijo derecho
+                    return getMin(node.getChild(i + 1)); // Retorna la clave más pequeña del hijo derecho
+                } 
+                else if (i < node.getNumberOfKeys() - 1) {
+                    return node.getKeys().get(i + 1); // Retorna la clave siguiente en el mismo nodo
+                } 
+                else {
+                    return null; // No tiene sucesor
+                }
+            } 
+            else if (node.isLeaf()) { // Si es una hoja y no se encontró la clave
+                return null;
+            } 
+            else { // Si no se encontró la clave, continuar en el hijo correspondiente
+                node = node.getChild(i);
+            }
+        }
+        return null; // Clave no encontrada
+    }
+
+
 
 
 
