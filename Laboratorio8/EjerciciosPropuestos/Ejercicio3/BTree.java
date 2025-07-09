@@ -1,16 +1,19 @@
 package Laboratorio8.EjerciciosPropuestos.Ejercicio3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BTree<T extends Comparable<T>>{
     private Node<T> root;
-    private final int orden;
+    private final int grado;  // grado máximo
 
-    public BTree(int orden) {
-        if (orden < 2) throw new IllegalArgumentException("Orden mínimo t >= 2");
-        this.orden = orden;
+    public BTree(int grado) {
+        if (grado < 3) throw new IllegalArgumentException("Grado mínimo m >= 3");
+        this.grado = grado;
         this.root = new Node<>(true);
     }
 
-    public void destroy(){
+    public void destroy() {
         root = new Node<>(true);
     }
 
@@ -18,22 +21,22 @@ public class BTree<T extends Comparable<T>>{
         return root.getNumberOfKeys() == 0;
     }
 
-    public boolean search(T key){
+    public boolean search(T key) {
         return search(root, key) != null;
     }
 
     private Node<T> search(Node<T> node, T key) {
         int i = 0;
-        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) {
+        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) { // Buscar la posición de la clave
             i++;
         }
-        if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) {
+        if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) { // Clave encontrada
             return node; // Clave encontrada
         } 
-        else if (node.isLeaf()) {
+        else if (node.isLeaf()) { // Si es hoja y no se encontró la clave
             return null; // Clave no encontrada
         } 
-        else {
+        else { // Si no es hoja, buscar en el hijo correspondiente
             return search(node.getChild(i), key); // Buscar en el hijo correspondiente
         }
     }
@@ -42,145 +45,168 @@ public class BTree<T extends Comparable<T>>{
         if (search(key)) {
             return; // La clave ya existe, no se inserta
         }
-        if (root.getNumberOfKeys() == 2 * orden - 1) { // Si el nodo raíz está lleno
-            Node<T> newRoot = new Node<>(false); // Crear un nuevo nodo raíz
-            newRoot.addChild(root); // Hacer que el nodo raíz sea un hijo del nuevo nodo raíz
-            splitChild(newRoot, 0); // Dividir el nodo raíz lleno
-            root = newRoot; // Actualizar la raíz del árbol
+        if (root.getNumberOfKeys() == grado - 1) { // Si el nodo raíz está lleno
+            Node<T> newRoot = new Node<>(false); // Crear nuevo nodo raíz
+            newRoot.addChild(root);
+            splitChild(newRoot, 0);
+            root = newRoot;
         }
         insertNonFull(root, key);
     }
 
-    public void insertNonFull(Node<T> node, T key) { // Inserción en un nodo no lleno
-        int i = node.getNumberOfKeys() - 1; // Índice del último elemento en el nodo
-        if (node.isLeaf()) { // Si es una hoja, insertar la clave directamente
-            while (i >= 0 && key.compareTo(node.getKeys().get(i)) < 0) { // Comparar la clave con las claves existentes
+    private void insertNonFull(Node<T> node, T key) { // Método auxiliar para insertar en un nodo que no está lleno
+        int i = node.getNumberOfKeys() - 1; // Índice del último elemento
+        if (node.isLeaf()) {
+            while (i >= 0 && key.compareTo(node.getKeys().get(i)) < 0) { // Buscar la posición correcta para insertar la clave
                 i--;
             }
             node.insertKeyAt(i + 1, key); // Insertar la clave en la posición correcta
         } 
         else {
-            while (i >= 0 && key.compareTo(node.getKeys().get(i)) < 0) { // Buscar el hijo adecuado para insertar la clave
+            while (i >= 0 && key.compareTo(node.getKeys().get(i)) < 0) { // Buscar el hijo adecuado
                 i--;
             }
             i++;
-            if (node.getChild(i).getNumberOfKeys() == 2 * orden - 1) { // Si el hijo está lleno, dividirlo
-                splitChild(node, i); // Dividir el hijo lleno
-                if (key.compareTo(node.getKeys().get(i)) > 0) { // Si la clave es mayor que la clave del padre, ir al siguiente hijo
+            if (node.getChild(i).getNumberOfKeys() == grado - 1) { // Si el hijo está lleno
+                splitChild(node, i);
+                if (key.compareTo(node.getKeys().get(i)) > 0) { // Si la clave es mayor que la clave del padre después de dividir
                     i++;
                 }
             }
-            insertNonFull(node.getChild(i), key); // Insertar la clave en el hijo adecuado
+            insertNonFull(node.getChild(i), key); // Insertar en el hijo adecuado
         }
     }
+
     private void splitChild(Node<T> parent, int index) {
-        Node<T> fullChild = parent.getChild(index); // Obtener el hijo lleno
-        Node<T> newChild = new Node<>(fullChild.isLeaf()); // Crear un nuevo hijo que será la mitad del hijo lleno
-        
-        // Mover la mitad de las claves al nuevo hijo
-        for (int j = 0; j < orden - 1; j++) {
-            newChild.addKey(fullChild.getKeys().get(j + orden));
+        Node<T> fullChild = parent.getChild(index);
+        Node<T> newChild = new Node<>(fullChild.isLeaf());
+
+        int mid = grado / 2;  // índice mediano
+
+        // Clave mediana que sube al padre
+        T medianKey = fullChild.getKeys().get(mid); 
+
+        // Mover claves mayores al nuevo hijo
+        for (int j = mid + 1; j < fullChild.getNumberOfKeys(); j++) {
+            newChild.addKey(fullChild.getKeys().get(j));
         }
-        
-        // Si no es una hoja, mover los hijos correspondientes
+
+        // Mover hijos correspondientes si no es hoja
         if (!fullChild.isLeaf()) {
-            for (int j = 0; j < orden; j++) {
-                newChild.addChild(fullChild.getChild(j + orden)); // Mover los hijos correspondientes al nuevo hijo
+            for (int j = mid + 1; j <= fullChild.getNumberOfKeys(); j++) { // Mover hijos al nuevo hijo
+                newChild.addChild(fullChild.getChild(j));
             }
         }
-        
-        // Reducir el número de claves en el hijo lleno
-        fullChild.setKeys(fullChild.getKeys().subList(0, orden - 1));
-        
-        // Insertar el nuevo hijo en el padre
+
+        // Mantener solo las claves menores al mediano en el hijo original
+        List<T> leftKeys = new ArrayList<>();
+        for (int j = 0; j < mid; j++) {
+            leftKeys.add(fullChild.getKeys().get(j));
+        }
+        fullChild.setKeys(leftKeys); // Actualizar las claves del hijo completo
+
+        if (!fullChild.isLeaf()) { // Si no es hoja, ajustar los hijos del hijo completo
+            List<Node<T>> leftChildren = new ArrayList<>(); // Crear lista para los hijos del lado izquierdo
+            for (int j = 0; j <= mid; j++) { // Mover hijos al hijo completo
+                leftChildren.add(fullChild.getChild(j)); // Mover hijos al hijo completo
+            }
+            fullChild.setChildren(leftChildren);
+        }
+
+        // Insertar clave mediana en el padre
+        parent.insertKeyAt(index, medianKey);
+        // Insertar nuevo hijo a la derecha del hijo dividido
         parent.insertChildAt(index + 1, newChild);
-        parent.insertKeyAt(index, fullChild.getKeys().get(orden - 1));
     }
-    
     public void remove(T key) {
-        if (!search(key)) {
+        if (!search(key)) { // Verificar si la clave existe antes de eliminar
             return; // La clave no existe, no se puede eliminar
         }
-        remove(root, key);
+        remove(root, key); // Llamar al método auxiliar para eliminar la clave
         if (root.getNumberOfKeys() == 0) { // Si la raíz queda vacía, hacer que sea una hoja
             root = root.isLeaf() ? new Node<>(true) : root.getChild(0);
         }
     }
 
-    private void remove(Node<T> node, T key) {
+    private void remove(Node<T> node, T key) { // Método auxiliar para eliminar una clave
         int i = 0;
-        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) {
+        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) { // Buscar la posición de la clave
             i++;
         }
         if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) { // Clave encontrada
-            if (node.isLeaf()) { // Si es una hoja, eliminar la clave directamente
+            if (node.isLeaf()) { // Si es hoja, eliminar la clave directamente
                 node.removeKeyAt(i);
             } 
-            else { // Si no es una hoja, manejar la eliminación de manera más compleja
-                removeInternalNode(node, i);
+            else { // Si no es hoja, eliminar la clave del nodo interno
+                removeInternalNode(node, i); // Si no es hoja, eliminar la clave del nodo interno
             }
         } 
-        else if (!node.isLeaf()) { // Si no es una hoja, buscar en el hijo correspondiente
+        else if (!node.isLeaf()) { // Si no es hoja, buscar en el hijo correspondiente
             remove(node.getChild(i), key);
         }
     }
+    private void removeInternalNode(Node<T> node, int index) { // Método auxiliar para eliminar una clave de un nodo interno
+        Node<T> child = node.getChild(index); 
+        int minKeys = (int) Math.ceil(grado / 2.0) - 1;
 
-    private void removeInternalNode(Node<T> node, int index) {
-        Node<T> child = node.getChild(index);
-        if (child.getNumberOfKeys() >= orden) { // Si el hijo tiene suficientes claves, tomar la máxima del hijo
+        if (child.getNumberOfKeys() >= minKeys + 1) {  // Si el hijo tiene suficientes claves, eliminar la clave directamente
             T predecessor = getMax(child);
-            node.getKeys().set(index, predecessor); // Reemplazar la clave con el predecesor
-            remove(child, predecessor); // Eliminar el predecesor del hijo
+            node.getKeys().set(index, predecessor);
+            remove(child, predecessor);
         } 
         else {
             Node<T> sibling = node.getChild(index + 1);
-            if (sibling.getNumberOfKeys() >= orden) { // Si el hermano tiene suficientes claves, tomar la mínima del hermano
+            if (sibling.getNumberOfKeys() >= minKeys + 1) { // Si el hermano derecho tiene suficientes claves, tomar el sucesor
                 T successor = getMin(sibling);
-                node.getKeys().set(index, successor); // Reemplazar la clave con el sucesor
-                remove(sibling, successor); // Eliminar el sucesor del hermano
+                node.getKeys().set(index, successor);
+                remove(sibling, successor);
             } 
-            else { // Si ambos hijos tienen menos de orden - 1 claves, fusionarlos
+            else { // Si ambos hijos tienen menos de minKeys + 1 claves, fusionarlos
                 merge(node, index);
-                remove(child, node.getKeys().get(index)); // Eliminar la clave fusionada
+                remove(child, node.getKeys().get(index));
             }
         }
     }
-    private T getMax(Node<T> node) {
+
+    private T getMax(Node<T> node) { // Método auxiliar para obtener el máximo de un nodo
         while (!node.isLeaf()) {
-            node = node.getChild(node.getNumberOfKeys() - 1); // Ir al hijo derecho
+            node = node.getChild(node.getNumberOfKeys());
         }
-        return node.getKeys().get(node.getNumberOfKeys() - 1); // Retornar la última clave
+        return node.getKeys().get(node.getNumberOfKeys() - 1);
     }
-    private T getMin(Node<T> node) {
+
+    private T getMin(Node<T> node) { // Método auxiliar para obtener el mínimo de un nodo
         while (!node.isLeaf()) {
-            node = node.getChild(0); // Ir al hijo izquierdo
+            node = node.getChild(0);
         }
-        return node.getKeys().get(0); // Retornar la primera clave
+        return node.getKeys().get(0);
     }
-    private void merge(Node<T> parent, int index) {
+
+    private void merge(Node<T> parent, int index) { // Método auxiliar para fusionar dos hijos
         Node<T> leftChild = parent.getChild(index);
         Node<T> rightChild = parent.getChild(index + 1);
-        
-        // Mover la clave del padre al hijo izquierdo
-        leftChild.addKey(parent.getKeys().get(index));
-        
-        // Mover todas las claves del hijo derecho al hijo izquierdo
+
+        // Mover clave del padre al hijo izquierdo
+        leftChild.addKey(parent.getKeys().get(index)); 
+
+        // Mover claves del hijo derecho al izquierdo
         for (T key : rightChild.getKeys()) {
             leftChild.addKey(key);
         }
-        
-        // Mover todos los hijos del hijo derecho al hijo izquierdo
+
+        // Mover hijos del derecho si no es hoja
         if (!leftChild.isLeaf()) {
             for (Node<T> child : rightChild.getChildren()) {
                 leftChild.addChild(child);
             }
         }
-        
-        // Eliminar el hijo derecho y la clave del padre
+
+        // Remover clave y hijo derecho del padre
         parent.removeKeyAt(index);
         parent.getChildren().remove(index + 1);
     }
-    public T predecesor(T key) {
+
+    public T predecesor(T key) { // Método para obtener el predecesor de una clave
         Node<T> node = root;
         while (node != null) { // Recorrer el árbol
             int i = 0;
@@ -188,62 +214,65 @@ public class BTree<T extends Comparable<T>>{
                 i++;
             }
             if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) { // Clave encontrada
-                if (!node.isLeaf()) { // Si no es una hoja, buscar el hijo izquierdo
-                    return getMax(node.getChild(i)); // Retorna la clave más grande del hijo izquierdo
+                if (!node.isLeaf()) { // Si no es hoja, buscar el máximo del hijo izquierdo
+                    return getMax(node.getChild(i));
                 } 
-                else if (i > 0) { // Si es una hoja y hay claves anteriores
-                    return node.getKeys().get(i - 1); // Retorna la clave anterior en el mismo nodo
+                else if (i > 0) { // Si es hoja, devolver el predecesor
+                    return node.getKeys().get(i - 1);
                 } 
-                else { // Si es una hoja y no hay claves anteriores
-                    return null; // No tiene predecesor
+                else { // Si es hoja y no hay predecesor
+                    return null;
                 }
             } 
-            else if (node.isLeaf()) { // Si es una hoja y no se encontró la clave
+            else if (node.isLeaf()) { // Si es hoja y no se encontró la clave
                 return null;
             } 
-            else { // Si no se encontró la clave, continuar en el hijo correspondiente
+            else { // Si no es hoja, continuar buscando en el hijo correspondiente
                 node = node.getChild(i);
             }
         }
-        return null; // Clave no encontrada
+        return null;
     }
-    public T sucesor(T key) {
+
+    public T sucesor(T key) { // Método para obtener el sucesor de una clave
         Node<T> node = root;
-        while (node != null) {
+        while (node != null) { // Recorrer el árbol
             int i = 0;
-            while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) {
+            while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) { // Buscar la posición de la clave
                 i++;
             }
             if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) { // Clave encontrada
-                if (!node.isLeaf()) { // Si no es una hoja, buscar el hijo derecho
-                    return getMin(node.getChild(i + 1)); // Retorna la clave más pequeña del hijo derecho
+                if (!node.isLeaf()) { // Si no es hoja, buscar el mínimo del hijo derecho
+                    return getMin(node.getChild(i + 1));
                 } 
-                else if (i < node.getNumberOfKeys() - 1) {
-                    return node.getKeys().get(i + 1); // Retorna la clave siguiente en el mismo nodo
+                else if (i < node.getNumberOfKeys() - 1) { // Si es hoja, devolver el sucesor
+                    return node.getKeys().get(i + 1);
                 } 
-                else {
-                    return null; // No tiene sucesor
+                else { // Si es hoja y no hay sucesor
+                    return null;
                 }
             } 
-            else if (node.isLeaf()) { // Si es una hoja y no se encontró la clave
+            else if (node.isLeaf()) { // Si es hoja y no se encontró la clave
                 return null;
             } 
-            else { // Si no se encontró la clave, continuar en el hijo correspondiente
+            else { // Si no es hoja, continuar buscando en el hijo correspondiente
                 node = node.getChild(i);
             }
         }
-        return null; // Clave no encontrada
+        return null;
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         toString(root, sb, 0);
         return sb.toString();
     }
+
     private void toString(Node<T> node, StringBuilder sb, int level) {
         if (node == null) return;
         for (int i = 0; i < level; i++) {
-            sb.append("  "); // Indentación para el nivel
+            sb.append("  ");
         }
         sb.append("Nivel ").append(level).append(": ");
         for (T key : node.getKeys()) {
@@ -252,13 +281,15 @@ public class BTree<T extends Comparable<T>>{
         sb.append("\n");
         if (!node.isLeaf()) {
             for (Node<T> child : node.getChildren()) {
-                toString(child, sb, level + 1); // Llamada recursiva para los hijos
+                toString(child, sb, level + 1);
             }
         }
     }
+
     public String writeTree() {
         return writeTree(root);
     }
+
     private String writeTree(Node<T> current) {
         if (current == null) return "";
 
@@ -272,6 +303,7 @@ public class BTree<T extends Comparable<T>>{
         }
 
         return sb.toString();
+
     }
 
 
