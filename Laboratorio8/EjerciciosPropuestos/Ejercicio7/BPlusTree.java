@@ -66,7 +66,8 @@ public class BPlusTree<T extends Comparable<T>>{
                 i--;
             }
             node.insertKeyAt(i + 1, key);  // Insertar la clave en la posición correcta
-        } else {
+        } 
+        else {
             // Buscar el hijo adecuado para insertar
             while (i >= 0 && key.compareTo(node.getKeys().get(i)) < 0) {
                 i--;
@@ -135,7 +136,8 @@ public class BPlusTree<T extends Comparable<T>>{
                 node.getKeys().set(i, predKey);  // Reemplazar con el predecesor
                 removeFromNode(predecessor, predKey);  // Eliminar el predecesor
             }
-        } else if (!node.isLeaf()) {
+        } 
+        else if (!node.isLeaf()) {
             // Buscar en el hijo correspondiente
             Node<T> child = node.getChild(i);
             if (child.getNumberOfKeys() < t) {
@@ -256,6 +258,54 @@ public class BPlusTree<T extends Comparable<T>>{
                 parent.removeChildAt(index);
             }
         }
+    }
+    public T predecesor(T key) {
+        if (isEmpty()) {
+            return null;  // Árbol vacío
+        }
+        return predecesorInNode(root, key);
+    }
+    private T predecesorInNode(Node<T> node, T key) {
+        int i = 0;
+        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) {
+            i++;
+        }
+        if (i > 0 && node.isLeaf()) {
+            return node.getKeys().get(i - 1);  // Predecesor en una hoja
+        } 
+        else if (!node.isLeaf()) {
+            Node<T> child = node.getChild(i);
+            if (child.getNumberOfKeys() > 0) {
+                return predecesorInNode(child, key);  // Buscar en el hijo correspondiente
+            } else if (i > 0) {
+                return node.getKeys().get(i - 1);  // Predecesor en el padre
+            }
+        }
+        return null;  // No se encontró predecesor
+    }
+    public T sucesor(T key) {
+        if (isEmpty()) {
+            return null;  // Árbol vacío
+        }
+        return sucesorInNode(root, key);
+    }
+    private T sucesorInNode(Node<T> node, T key) {
+        int i = 0;
+        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) >= 0) {
+            i++;
+        }
+        if (i < node.getNumberOfKeys() && node.isLeaf()) {
+            return node.getKeys().get(i);  // Sucesor en una hoja
+        } 
+        else if (!node.isLeaf()) {
+            Node<T> child = node.getChild(i);
+            if (child.getNumberOfKeys() > 0) {
+                return sucesorInNode(child, key);  // Buscar en el hijo correspondiente
+            } else if (i < node.getNumberOfKeys()) {
+                return node.getKeys().get(i);  // Sucesor en el padre
+            }
+        }
+        return null;  // No se encontró sucesor
     }
 
 }
