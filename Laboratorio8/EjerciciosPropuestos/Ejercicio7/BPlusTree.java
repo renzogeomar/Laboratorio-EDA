@@ -110,11 +110,152 @@ public class BPlusTree<T extends Comparable<T>>{
         // Ajustar los hijos del padre
         parent.insertChildAt(index + 1, newChild);
     }
+    public void remove(T key) {
+        if (isEmpty()) {
+            return;  // No hay nada que eliminar
+        }
+        removeFromNode(root, key);
+        if (root.getNumberOfKeys() == 0 && !root.isLeaf()) {
+            root = root.getChild(0);  // Actualizar la raíz si está vacía
+        }
+    }
+    private void removeFromNode(Node<T> node, T key) {
+        int i = 0;
+        while (i < node.getNumberOfKeys() && key.compareTo(node.getKeys().get(i)) > 0) {
+            i++;
+        }
+        if (i < node.getNumberOfKeys() && key.equals(node.getKeys().get(i))) {
+            // Clave encontrada
+            if (node.isLeaf()) {
+                node.removeKeyAt(i);  // Eliminar de una hoja
+            } else {
+                // Eliminar de un nodo interno
+                Node<T> predecessor = getPredecessor(node, i);
+                T predKey = predecessor.getKeys().get(predecessor.getNumberOfKeys() - 1);
+                node.getKeys().set(i, predKey);  // Reemplazar con el predecesor
+                removeFromNode(predecessor, predKey);  // Eliminar el predecesor
+            }
+        } else if (!node.isLeaf()) {
+            // Buscar en el hijo correspondiente
+            Node<T> child = node.getChild(i);
+            if (child.getNumberOfKeys() < t) {
+                fillChild(node, i);  // Asegurar que el hijo tenga suficientes claves
+            }
+            removeFromNode(child, key);  // Continuar la eliminación en el hijo
+        }
+    }
+    private Node<T> getPredecessor(Node<T> node, int index) {
+        Node<T> current = node.getChild(index);
+        while (!current.isLeaf()) {
+            current = current.getChild(current.getNumberOfKeys() - 1);  // Ir al último hijo
+        }
+        return current;  // Retornar el último nodo hoja
+    }
+    private void fillChild(Node<T> parent, int index) {
+        Node<T> child = parent.getChild(index);
 
+        // Caso 1: El hermano izquierdo tiene suficientes claves
+        if (index != 0 && parent.getChild(index - 1).getNumberOfKeys() >= t) {
+            Node<T> leftSibling = parent.getChild(index - 1);
 
+            // Mover clave del padre al hijo
+            child.insertKeyAt(0, parent.getKeys().get(index - 1));
 
+            // Mover la última clave del hermano izquierdo al padre
+            parent.getKeys().set(index - 1, leftSibling.getKeys().get(leftSibling.getNumberOfKeys() - 1));
+            leftSibling.removeKeyAt(leftSibling.getNumberOfKeys() - 1);
 
+            // Si no es hoja, mover el último hijo del hermano izquierdo al hijo actual
+            if (!leftSibling.isLeaf()) {
+                child.insertChildAt(0, leftSibling.getChild(leftSibling.getChildren().size() - 1));
+                leftSibling.removeChildAt(leftSibling.getChildren().size() - 1);
+            }
+        }
 
+        // Caso 2: El hermano derecho tiene suficientes claves
+        else if (index != parent.getNumberOfKeys() && parent.getChild(index + 1).getNumberOfKeys() >= t) {
+            Node<T> rightSibling = parent.getChild(index + 1);
 
+            // Mover clave del padre al hijo
+            child.addKey(parent.getKeys().get(index));
+
+            // Mover la primera clave del hermano derecho al padre
+            parent.getKeys().set(index, rightSibling.getKeys().get(0));
+            rightSibling.removeKeyAt(0);
+
+            // Si no es hoja, mover el primer hijo del hermano derecho al hijo actual
+            if (!rightSibling.isLeaf()) {
+                child.addChild(rightSibling.getChild(0));
+                rightSibling.removeChildAt(0);
+            }
+        }
+
+        // Caso 3: Combinar con un hermano
+        else {
+            // Intentar combinar con el hermano derecho si existe
+            if (index != parent.getNumberOfKeys()) {
+                Node<T> rightSibling = parent.getChild(index + 1);
+
+                // Mover clave del padre al hijo
+                child.addKey(parent.getKeys().get(index));
+
+                // Mover todas las claves del hermano derecho al hijo
+                for (T key : rightSibling.getKeys()) {
+                    child.addKey(key);
+                }
+
+                // Mover todos los hijos si no es hoja
+                if (!child.isLeaf()) {
+                    for (Node<T> grandChild : rightSibling.getChildren()) {
+                        child.addChild(grandChild);
+                    }
+                }
+
+                // Enlazar hojas
+                if (child.isLeaf()) {
+                    child.setNext(rightSibling.getNext());
+                    if (rightSibling.getNext() != null) {
+                        rightSibling.getNext().setPrev(child);
+                    }
+                }
+
+                // Eliminar clave y puntero del padre
+                parent.removeKeyAt(index);
+                parent.removeChildAt(index + 1);
+            } 
+            
+            // Sino, combinar con el hermano izquierdo
+            else {
+                Node<T> leftSibling = parent.getChild(index - 1);
+
+                // Mover clave del padre al hermano izquierdo
+                leftSibling.addKey(parent.getKeys().get(index - 1));
+
+                // Mover todas las claves del hijo al hermano izquierdo
+                for (T key : child.getKeys()) {
+                    leftSibling.addKey(key);
+                }
+
+                // Mover todos los hijos si no es hoja
+                if (!child.isLeaf()) {
+                    for (Node<T> grandChild : child.getChildren()) {
+                        leftSibling.addChild(grandChild);
+                    }
+                }
+
+                // Enlazar hojas
+                if (child.isLeaf()) {
+                    leftSibling.setNext(child.getNext());
+                    if (child.getNext() != null) {
+                        child.getNext().setPrev(leftSibling);
+                    }
+                }
+
+                // Eliminar clave y puntero del padre
+                parent.removeKeyAt(index - 1);
+                parent.removeChildAt(index);
+            }
+        }
+    }
 
 }
