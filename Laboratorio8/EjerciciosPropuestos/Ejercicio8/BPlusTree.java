@@ -1,4 +1,4 @@
-package Laboratorio8.EjerciciosPropuestos.Ejercicio7;
+package Laboratorio8.EjerciciosPropuestos.Ejercicio8;
 
 // Esta clase representa un árbol B+ genérico
 public class BPlusTree<T extends Comparable<T>>{

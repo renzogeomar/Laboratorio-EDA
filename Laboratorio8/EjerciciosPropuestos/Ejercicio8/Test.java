@@ -1,4 +1,4 @@
-package Laboratorio8.EjerciciosPropuestos.Ejercicio7;
+package Laboratorio8.EjerciciosPropuestos.Ejercicio8;
 import java.util.Scanner;
 
 public class Test{
