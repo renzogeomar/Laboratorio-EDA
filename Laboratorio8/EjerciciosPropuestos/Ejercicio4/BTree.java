@@ -1,5 +1,7 @@
 package Laboratorio8.EjerciciosPropuestos.Ejercicio4;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -305,6 +307,48 @@ public class BTree<T extends Comparable<T>>{
 
         return sb.toString();
 
+    }
+    public String toDot() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("digraph BTree {\n");
+        sb.append("node [shape=record];\n");
+        toDot(root, sb);
+        sb.append("}\n");
+        return sb.toString();
+    }
+
+    private void toDot(Node<T> node, StringBuilder sb) {
+        if (node == null) return;
+
+        // Crear la etiqueta con las claves del nodo
+        StringBuilder label = new StringBuilder("\"<f0>");
+        for (int i = 0; i < node.getNumberOfKeys(); i++) {
+            label.append(" | ").append(node.getKeys().get(i)).append(" | <f").append(i + 1).append(">");
+        }
+        label.append("\"");
+
+        // Usar la identidad del nodo para que sea único en el grafo
+        sb.append(String.format("node%h [label=%s];\n", node, label.toString()));
+
+        // Si no es hoja, dibujar hijos y las aristas
+        if (!node.isLeaf()) {
+            for (int i = 0; i < node.getChildren().size(); i++) {
+                Node<T> child = node.getChild(i);
+                // Dibuja el hijo recursivamente
+                toDot(child, sb);
+                // Conectar el nodo padre con el hijo
+                sb.append(String.format("node%h:f%d -> node%h;\n", node, i, child));
+            }
+        }
+    }
+    public void saveDotToFile(String filename) {
+        String dotContent = toDot();
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write(dotContent);
+            System.out.println("Archivo DOT guardado en: " + filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
