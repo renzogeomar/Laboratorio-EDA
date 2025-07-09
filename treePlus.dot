@@ -1,0 +1,12 @@
+digraph BTree {
+node [shape=record];
+node7e9e5f8a [label="<f0> | 150 | <f1> | 200 | <f2> | 400 | <f3>"];
+node8bcc55f [label="<f0> | 25 | <f1> | 50 | <f2> | 100 | <f3> | 120 | <f4> | 175 | <f5>"];
+node7e9e5f8a:f0 -> node8bcc55f;
+node42a57993 [label="<f0> | 150 | <f1> | 190 | <f2> | 350 | <f3>"];
+node7e9e5f8a:f1 -> node42a57993;
+node75b84c92 [label="<f0> | 200 | <f1> | 300 | <f2> | 355 | <f3> | 360 | <f4> | 375 | <f5>"];
+node7e9e5f8a:f2 -> node75b84c92;
+node6bc7c054 [label="<f0> | 400 | <f1> | 500 | <f2>"];
+node7e9e5f8a:f3 -> node6bc7c054;
+}
