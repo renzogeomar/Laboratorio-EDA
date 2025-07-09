@@ -81,33 +81,24 @@ public class BTree<T extends Comparable<T>>{
         Node<T> fullChild = parent.getChild(index);
         Node<T> newChild = new Node<>(fullChild.isLeaf());
 
-        int mid = grado / 2;
         int totalKeys = fullChild.getNumberOfKeys();
+        int mid = totalKeys / 2;  // Índice mediano
+
+        // Clave mediana que sube al padre
         T medianKey = fullChild.getKeys().get(mid);
 
-        // 📌 LOG: ver valores intermedios
-        System.out.printf("=== SplitChild en index %d de nodo con claves %s%n", index, fullChild.getKeys());
-        System.out.printf("TotalKeys=%d, mid=%d, median=%s%n", totalKeys, mid, medianKey);
-
-        // Construir newChild
+        // Mover las claves mayores a la mediana al nuevo hijo derecho
         for (int j = mid + 1; j < totalKeys; j++) {
             newChild.addKey(fullChild.getKeys().get(j));
         }
+
+        // Si el nodo no es hoja, mover también los hijos correspondientes
         if (!fullChild.isLeaf()) {
-            for (int j = mid + 1; j <= totalKeys; j++) {
+            int totalChildren = fullChild.getChildren().size();
+            for (int j = mid + 1; j < totalChildren; j++) {
                 newChild.addChild(fullChild.getChild(j));
             }
-        }
-
-        System.out.printf("newChild claves=%s%n", newChild.getKeys());
-
-        // Ajustar fullChild
-        List<T> leftKeys = new ArrayList<>();
-        for (int j = 0; j < mid; j++) {
-            leftKeys.add(fullChild.getKeys().get(j));
-        }
-        fullChild.setKeys(leftKeys);
-        if (!fullChild.isLeaf()) {
+            // Recortar hijos del fullChild (izquierdo)
             List<Node<T>> leftChildren = new ArrayList<>();
             for (int j = 0; j <= mid; j++) {
                 leftChildren.add(fullChild.getChild(j));
@@ -115,9 +106,17 @@ public class BTree<T extends Comparable<T>>{
             fullChild.setChildren(leftChildren);
         }
 
-        System.out.printf("leftChild ahora claves=%s%n", fullChild.getKeys());
+        // Recortar las claves del fullChild (izquierdo) para que solo queden las menores a la mediana
+        List<T> leftKeys = new ArrayList<>();
+        for (int j = 0; j < mid; j++) {
+            leftKeys.add(fullChild.getKeys().get(j));
+        }
+        fullChild.setKeys(leftKeys);
 
+        // Insertar la clave mediana en el nodo padre
         parent.insertKeyAt(index, medianKey);
+
+        // Insertar el nuevo hijo derecho a la derecha del hijo dividido
         parent.insertChildAt(index + 1, newChild);
     }
     public void remove(T key) {
