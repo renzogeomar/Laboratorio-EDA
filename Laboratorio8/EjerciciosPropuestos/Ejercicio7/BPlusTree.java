@@ -46,6 +46,72 @@ public class BPlusTree<T extends Comparable<T>>{
         }
         return searchInNode(node.getChild(i), key);  // Buscar en el hijo correspondiente
     }
+    public void insert(T key) {
+        if (isEmpty()) {
+            root = new Node<>(true);  // Crear una nueva raíz si el árbol está vacío
+        }
+        if (root.getNumberOfKeys() == 2 * t - 1) {
+            Node<T> newRoot = new Node<>(false);  // Crear una nueva raíz no hoja
+            newRoot.addChild(root);
+            splitChild(newRoot, 0);
+            root = newRoot;  // Actualizar la raíz
+        }
+        insertNonFull(root, key);
+    }
+    private void insertNonFull(Node<T> node, T key) {
+        int i = node.getNumberOfKeys() - 1;
+        if (node.isLeaf()) {
+            // Insertar en una hoja
+            while (i >= 0 && key.compareTo(node.getKeys().get(i)) < 0) {
+                i--;
+            }
+            node.insertKeyAt(i + 1, key);  // Insertar la clave en la posición correcta
+        } else {
+            // Buscar el hijo adecuado para insertar
+            while (i >= 0 && key.compareTo(node.getKeys().get(i)) < 0) {
+                i--;
+            }
+            i++;
+            Node<T> child = node.getChild(i);
+            if (child.getNumberOfKeys() == 2 * t - 1) {
+                splitChild(node, i);  // Dividir el hijo si está lleno
+                if (key.compareTo(node.getKeys().get(i)) > 0) {
+                    i++;  // Ajustar el índice si la clave es mayor que la nueva clave del padre
+                }
+            }
+            insertNonFull(child, key);  // Insertar en el hijo adecuado
+        }
+    }
+    private void splitChild(Node<T> parent, int index) {
+        Node<T> fullChild = parent.getChild(index);
+        Node<T> newChild = new Node<>(fullChild.isLeaf());
+        
+        // Mover la mitad de las claves al nuevo hijo
+        for (int j = 0; j < t - 1; j++) {
+            newChild.addKey(fullChild.getKeys().get(j + t));
+        }
+        
+        // Si es una hoja, mover los enlaces
+        if (fullChild.isLeaf()) {
+            newChild.setNext(fullChild.getNext());
+            fullChild.setNext(newChild);
+            newChild.setPrev(fullChild);
+        }
+        
+        // Actualizar el número de claves en el hijo lleno
+        for (int j = t - 1; j < fullChild.getNumberOfKeys(); j++) {
+            fullChild.removeKeyAt(t - 1);
+        }
+        
+        // Insertar la nueva clave en el padre
+        parent.insertKeyAt(index, fullChild.getKeys().get(t - 1));
+        parent.addChild(newChild);
+        
+        // Ajustar los hijos del padre
+        parent.insertChildAt(index + 1, newChild);
+    }
+
+
 
 
 
