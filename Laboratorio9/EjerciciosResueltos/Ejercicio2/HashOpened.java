@@ -3,7 +3,7 @@ import java.util.LinkedList;
 
 public class HashOpened <E>{
     private LinkedList<Register<E>>[] table;
-    
+
     @SuppressWarnings("unchecked")
     public HashOpened(int capacity) {
         table = new LinkedList[capacity];
@@ -58,5 +58,9 @@ public class HashOpened <E>{
                 System.out.println("null");
             }
         }
+    }
+    public E getValueByKey(int key) {
+        Register<E> reg = search(key);
+        return (reg != null) ? reg.getValue() : null;
     }
 }

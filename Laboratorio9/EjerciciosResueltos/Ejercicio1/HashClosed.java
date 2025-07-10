@@ -75,5 +75,9 @@ public class HashClosed <E>{
             }
         }
     }
+    public E getValueByKey(int key) {
+        Register<E> reg = search(key);
+        return (reg != null) ? reg.getValue() : null;
+    }
 
 }

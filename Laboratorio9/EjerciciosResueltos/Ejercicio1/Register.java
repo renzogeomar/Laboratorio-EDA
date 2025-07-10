@@ -3,7 +3,7 @@ package Laboratorio9.EjerciciosResueltos.Ejercicio1;
 public class Register <E> implements Comparable<Register<E>>  {
     private int key;
     private E value;
-    private boolean deleted;
+    private boolean deleted = false;
 
     public Register(int key, E value) {
         this.key = key;
