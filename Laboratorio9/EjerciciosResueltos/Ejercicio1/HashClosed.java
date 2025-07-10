@@ -63,5 +63,17 @@ public class HashClosed <E>{
         } while (index != startIndex);
         System.out.println("Clave no encontrada: " + key);
     }
-    
+    public void showTable() {
+        System.out.println("\n--- Estado de la Tabla Hash (Cerrado) ---");
+        for (int i = 0; i < capacity; i++) {
+            System.out.print(i + ": ");
+            if (table[i] == null) {
+                System.out.println("[VACÍO]");
+            } else {
+                System.out.print(table[i] + " -> ");
+                System.out.println("null");
+            }
+        }
+    }
+
 }
