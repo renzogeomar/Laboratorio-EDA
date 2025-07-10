@@ -30,4 +30,19 @@ public class HashClosed <E>{
         } while (index != startIndex);
         System.out.println("Tabla llena, no se pudo insertar: " + reg);
     }
+    public Register<E> search(int key) {
+        int index = hash(key);
+        int startIndex = index;
+        do {
+            Register<E> current = table[index];
+            if (current == null) {
+                return null; // No encontrado
+            } 
+            else if (current.getKey() == key && !current.isDeleted()) {
+                return current;
+            }
+            index = (index + 1) % capacity;
+        } while (index != startIndex);
+        return null; // No encontrado
+    }
 }
