@@ -45,4 +45,23 @@ public class HashClosed <E>{
         } while (index != startIndex);
         return null; // No encontrado
     }
+    public void delete(int key) {
+        int index = hash(key);
+        int startIndex = index;
+        do {
+            Register<E> current = table[index];
+            if (current == null) {
+                System.out.println("Clave no encontrada: " + key);
+                return;
+            } 
+            else if (current.getKey() == key && !current.isDeleted()) {
+                current.delete();
+                System.out.println("Eliminado lógicamente: " + key + " en índice " + index);
+                return;
+            }
+            index = (index + 1) % capacity;
+        } while (index != startIndex);
+        System.out.println("Clave no encontrada: " + key);
+    }
+    
 }
