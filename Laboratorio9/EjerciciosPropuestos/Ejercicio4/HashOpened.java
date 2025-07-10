@@ -1,4 +1,4 @@
-package Laboratorio9.EjerciciosPropuestos.Ejercicio2;
+package Laboratorio9.EjerciciosPropuestos.Ejercicio4;
 import java.util.LinkedList;
 
 public class HashOpened <E>{

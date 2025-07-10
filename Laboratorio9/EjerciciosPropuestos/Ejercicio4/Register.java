@@ -1,4 +1,4 @@
-package Laboratorio9.EjerciciosPropuestos.Ejercicio2;
+package Laboratorio9.EjerciciosPropuestos.Ejercicio4;
 
 public class Register <E> implements Comparable<Register<E>>  {
     private int key;

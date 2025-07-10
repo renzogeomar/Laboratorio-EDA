@@ -1,4 +1,4 @@
-package Laboratorio9.EjerciciosPropuestos.Ejercicio1;
+package Laboratorio9.EjerciciosPropuestos.Ejercicio3;
 
 public class HashClosed <E>{
     private Register<E>[] table;

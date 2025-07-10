@@ -1,9 +1,10 @@
-package Laboratorio9.EjerciciosPropuestos.Ejercicio2;
+package Laboratorio9.EjerciciosPropuestos.Ejercicio3;
 
 public class Register <E> implements Comparable<Register<E>>  {
     private int key;
     private E value;
-    private boolean deleted;
+    private boolean deleted = false;
+
     public Register(int key, E value) {
         this.key = key;
         this.value = value;
@@ -30,7 +31,6 @@ public class Register <E> implements Comparable<Register<E>>  {
     }
     @Override
     public String toString() {
-        return (deleted ? "[ELIMINADO] " : "") + key + ":" + value;
+        return (deleted ? "[ELIMINADO] " : "") + key + ": " + value;
     }
 }
-    
